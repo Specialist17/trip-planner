@@ -72,13 +72,15 @@ class User(Resource):
 
     def delete(self):
         user_col = app.db.users
-        username = request.args.get('username')
+        email = request.args.get('email')
         user_to_delete = user_col.find_one({
-            'username': username
+            'email': email
         })
+        if user_to_delete is None:
+            return ({'error': 'User with email ' + email + " does not exist"}, 404, None)
 
         user_col.remove(user_to_delete)
-        return ({'deleted': 'user ' + username + " has been deleted"}, 200, None)
+        return ({'deleted': 'User with email ' + email + " has been deleted"}, 200, None)
 
 # Add api routes here
 api.add_resource(User, '/users')

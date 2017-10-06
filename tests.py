@@ -105,7 +105,34 @@ class TripPlannerTestCase(unittest.TestCase):
                             content_type='application/json')
         self.assertEqual(put.status_code, 404)
 
-        
+    def test_user_delete(self):
+        email= "eliel@example.com"
+        post = self.app.post('/users',
+                            headers=None,
+                            data=json.dumps(dict(
+                                username="Eliel Gordon",
+                                email="eliel@example.com",
+                                password="password"
+                                )),
+                            content_type='application/json')
+
+        self.assertEqual(post.status_code, 200)
+
+        deleted = self.app.delete('/users',
+                            headers=None,
+                            query_string=dict(email=email),
+                            content_type='application/json')
+
+        self.assertEqual(deleted.status_code, 200)
+
+        deleted = self.app.delete('/users',
+                            headers=None,
+                            query_string=dict(email=email),
+                            content_type='application/json')
+
+        self.assertEqual(deleted.status_code, 404)
+        self.assertEqual(deleted.data.decode("utf-8"), '{"error": "User with email ' + email + ' does not exist"}')
+
 
 if __name__ == '__main__':
     unittest.main()
