@@ -13,7 +13,7 @@ app.bcrypt_rounds = 12
 api = Api(app)
 
 
-## Write Resources here
+# Write Resources here
 class User(Resource):
 
     def post(self):
@@ -81,6 +81,7 @@ class User(Resource):
 
         user_col.remove(user_to_delete)
         return ({'deleted': 'User with email ' + email + " has been deleted"}, 200, None)
+
 
 # Add api routes here
 api.add_resource(User, '/users')
