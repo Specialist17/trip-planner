@@ -1,4 +1,3 @@
 {
-  "tests.py::TripPlannerTestCase::testGetUser": true,
-  "tests.py::TripPlannerTestCase::test_post_a_user": true
+  "tests.py::TripPlannerTestCase::testGetUser": true
 }

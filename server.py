@@ -50,17 +50,35 @@ class User(Resource):
             return (user, 200, None)
 
     def put(self):
-        json = request.json
-        print(json)
-        if 'username' in json and 'email' in json and 'password' in json:
-            app.db.users.get(json)
-            return (json, 200, None)
-        else:
-            print("no se posteó ná")
-            return (None, 400, None)
+        user_email = request.args.get('email')
+        username = request.json.get('username')
+        print(user_email)
 
-        return {'put': 'working'}
+        if user_email is None:
+            return ({'error': 'no specified email for user'}, 404, None)
 
+        user_col = app.db.users
+
+        user = user_col.find_one({
+            'email': user_email
+        })
+
+        if user is not None:
+            user['username'] = username
+            user_col.save(user)
+            return (user, 200, None)
+
+        return ({'error': 'no user with that email found'}, 404, None)
+
+    def delete(self):
+        user_col = app.db.users
+        username = request.args.get('username')
+        user_to_delete = user_col.find_one({
+            'username': username
+        })
+
+        user_col.remove(user_to_delete)
+        return ({'deleted': 'user ' + username + " has been deleted"}, 200, None)
 
 # Add api routes here
 api.add_resource(User, '/users')

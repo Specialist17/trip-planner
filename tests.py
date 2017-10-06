@@ -70,9 +70,41 @@ class TripPlannerTestCase(unittest.TestCase):
                             content_type='application/json')
 
         self.assertEqual(response_validate.status_code, 400)
-        # self.assertEqual(response_validate.data, {"error": "missing fields"})
+        self.assertEqual(response_validate.data.decode("utf-8"), '{"error": "missing fields"}')
 
     def test_update_a_user(self):
+
+        post = self.app.post('/users',
+                            headers=None,
+                            data=json.dumps(dict(
+                                username="Eliel Gordon",
+                                email="eliel@example.com",
+                                password="password"
+                                )),
+                            content_type='application/json')
+
+        self.assertEqual(post.status_code, 200)
+        put = self.app.put('/users',
+                            headers=None,
+                            data=json.dumps(dict(
+                                username="Fabio",
+                                email="fabio@example.com",
+                                password="password"
+                                )),
+                            query_string=dict(email="eliel@example.com"),
+                            content_type='application/json')
+        self.assertEqual(put.status_code, 200)
+
+
+        put = self.app.put('/users',
+                            headers=None,
+                            data=json.dumps(dict(
+                                username="Fabio"
+                                )),
+                            query_string=dict(email="elie@example.com"),
+                            content_type='application/json')
+        self.assertEqual(put.status_code, 404)
+
         
 
 if __name__ == '__main__':
