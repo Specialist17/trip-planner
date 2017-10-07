@@ -22,7 +22,7 @@ class User(Resource):
         print(json)
         if 'username' in json and 'email' in json and 'password' in json:
             app.db.users.insert_one(json)
-            return (json, 200, None)
+            return (json, 201, None)
         elif 'username' in json and 'password' in json:
                 return ({'error': 'no email was specified'}, 400, None)
         elif 'username' not in json or 'email' not in json or 'password' not in json:

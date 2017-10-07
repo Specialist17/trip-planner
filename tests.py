@@ -44,12 +44,33 @@ class TripPlannerUserTestCase(unittest.TestCase):
                                 query_string=dict(email="eliel@example.com")
                                 )
 
-        # Decode reponse
         response_json = json.loads(response.data.decode())
-
-        # Actual test to see if GET request was succesful
-        # Here we check the status code
         self.assertEqual(response.status_code, 200)
+
+    def test_fail_post_a_user_with_already_created_email(self):
+
+        post = self.app.post('/users',
+                            headers=None,
+                            data=json.dumps(dict(
+                                username="Eliel Gordon",
+                                email="eliel@example.com",
+                                password="password"
+                                )),
+                            content_type='application/json')
+
+        self.assertEqual(post.status_code, 201)
+
+        fail_post = self.app.post('/users',
+                            headers=None,
+                            data=json.dumps(dict(
+                                username="Eliel Gordon",
+                                email="eliel@example.com",
+                                password="password"
+                                )),
+                            content_type='application/json')
+
+        self.assertEqual(fail_post.status_code, 404)
+
 
     def test_post_a_user(self):
         response = self.app.post('/users',
@@ -61,8 +82,9 @@ class TripPlannerUserTestCase(unittest.TestCase):
                                 )),
                             content_type='application/json')
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
 
+    def test_fail_post_user_missing_fields(self):
         response_validate = self.app.post('/users',
                             headers=None,
                             data=json.dumps(dict(
@@ -84,7 +106,8 @@ class TripPlannerUserTestCase(unittest.TestCase):
                                 )),
                             content_type='application/json')
 
-        self.assertEqual(post.status_code, 200)
+        self.assertEqual(post.status_code, 201)
+
         put = self.app.put('/users',
                             headers=None,
                             data=json.dumps(dict(
@@ -96,13 +119,17 @@ class TripPlannerUserTestCase(unittest.TestCase):
                             content_type='application/json')
         self.assertEqual(put.status_code, 200)
 
+        get_update_user = self.app.get('/users',
+                                       headers=None,
+                                       query_string=dict(email="eliel@example.com"),
+                                       content_type='application/json')
+        self.assertEqual(get_update_user.status_code, 404)
 
         put = self.app.put('/users',
-                            headers=None,
                             data=json.dumps(dict(
                                 username="Fabio"
                                 )),
-                            query_string=dict(email="elie@example.com"),
+                            query_string=dict(email="eliel@example.com"),
                             content_type='application/json')
         self.assertEqual(put.status_code, 404)
 
@@ -117,7 +144,7 @@ class TripPlannerUserTestCase(unittest.TestCase):
                                 )),
                               content_type='application/json')
 
-        self.assertEqual(post.status_code, 200)
+        self.assertEqual(post.status_code, 201)
 
         deleted = self.app.delete('/users',
                                   headers=None,
@@ -147,8 +174,13 @@ class TripPlannerUserTestCase(unittest.TestCase):
                         end_date="December 17, 2017",
                         waypoints=[
                             dict(
-                                longitude="38.9013833",
-                                latitude="-96.6745109"
+                                destination="Spain",
+                                location=[
+                                    dict(
+                                        longitude="38.9013833",
+                                        latitude="-96.6745109"
+                                    )
+                                ]
                             )
                         ],
                         isFavorite=False
