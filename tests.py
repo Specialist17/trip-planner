@@ -191,8 +191,24 @@ class TripPlannerUserTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_getting_all_trips(self):
+        self.app.post('/trips',
+                      headers=None,
+                      data=json.dumps(dict(
+                        destination="London, England",
+                        completed=False,
+                        start_date="Nov 26, 2017",
+                        end_date="December 17, 2017",
+                        waypoints=[],
+                        isFavorite=False
+                      )),
+
+                      content_type='application/json'
+                      )
         response = self.app.get('/trips')
         self.assertEqual(response.status_code, 200)
+
+        boolean = isinstance(json.loads(response.data.decode()), list)
+        self.assertTrue(boolean)
 
     def test_failing_to_get_a_trip(self):
         response = self.app.get('/trips',

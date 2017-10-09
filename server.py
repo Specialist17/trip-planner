@@ -118,7 +118,7 @@ class Trip(Resource):
         trips_arr = []
         for trip in trips:
             trips_arr.append(trip)
-
+        print("trips: " + str(isinstance(trips_arr, list)))
         return (trips_arr, 200, None)
 
     def post(self):
