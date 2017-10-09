@@ -132,6 +132,61 @@ class Trip(Resource):
             trips_col.insert_one(json)
             return (json, 201, None)
 
+    def put(self):
+        args = request.args
+        trips_col = app.db.trips
+
+        if 'destination' in args or 'start_date' in args:
+            trip_destination = args.get('destination')
+            trip_start_date = args.get('start_date')
+
+        user_col = app.db.users
+
+        user = user_col.find_one({
+            'email': user_email
+        })
+        print(user)
+
+        if user is not None:
+            if 'username' in json:
+                user['username'] = username
+
+            if 'email' in json:
+                user['email'] = json['email']
+
+            user_col.save(user)
+            return (user, 200, None)
+
+        return ({'error': 'no user with that email found'}, 404, None)
+
+    def patch(self):
+        user_email = request.args.get('email')
+        username = request.json.get('username')
+        json = request.json
+        print(user_email)
+
+        if user_email is None:
+            return ({'error': 'no specified email for user'}, 404, None)
+
+        user_col = app.db.users
+
+        user = user_col.find_one({
+            'email': user_email
+        })
+        print(user)
+
+        if user is not None:
+            if 'username' in json:
+                user['username'] = username
+
+            if 'email' in json:
+                user['email'] = json['email']
+
+            user_col.save(user)
+            return (user, 200, None)
+
+        return ({'error': 'no user with that email found'}, 404, None)
+
 
 # Add api routes here
 api.add_resource(User, '/users')

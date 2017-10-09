@@ -212,8 +212,9 @@ class TripPlannerUserTestCase(unittest.TestCase):
 
     def test_failing_to_get_a_trip(self):
         response = self.app.get('/trips',
-                                query_string=dict(id="")
+                                query_string=dict(destination="London, Guayanilla")
                                 )
+        self.assertEqual(response.status_code, 404)
 
     def test_patching_a_trip(self):
 
@@ -238,6 +239,36 @@ class TripPlannerUserTestCase(unittest.TestCase):
 
         response = json.loads(patch.data.decode())
         self.assertEqual(response.status_code, 200)
+
+    def test_updating_a_trip(self):
+
+        patch = self.app.put('/trips',
+                             headers=None,
+                             data=json.dumps(dict(
+                                  destination="London, England",
+                                  completed=False,
+                                  start_date="Nov 26, 2017",
+                                  end_date="December 17, 2017",
+                                  waypoints=[
+                                      dict(
+                                          destination="Spain",
+                                          location=[
+                                              dict(
+                                                  longitude="38.9013833",
+                                                  latitude="-96.6745109"
+                                              )
+                                          ]
+                                      )
+                                  ],
+                                  isFavorite=False
+                               )),
+                             query_string=dict(destination="London, England"),
+                             content_type='application/json'
+                             )
+
+        response = json.loads(patch.data.decode())
+        self.assertEqual(response.status_code, 200)
+
 
     def test_validate_parameters_post_trip(self):
         post = self.app.post('/trips',
