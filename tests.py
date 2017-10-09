@@ -32,8 +32,8 @@ class TripPlannerUserTestCase(unittest.TestCase):
         self.app.post('/users',
                             headers=None,
                             data=json.dumps(dict(
-                                username="Eliel Gordon",
-                                email="eliel@example.com",
+                                username="Jiripolla",
+                                email="jiripolla@example.com",
                                 password="password"
                                 )),
                             content_type='application/json')
@@ -41,7 +41,7 @@ class TripPlannerUserTestCase(unittest.TestCase):
         # 3 Make a get request to fetch the posted user
 
         response = self.app.get('/users',
-                                query_string=dict(email="eliel@example.com")
+                                query_string=dict(email="jiripolla@example.com")
                                 )
 
         response_json = json.loads(response.data.decode())
@@ -52,8 +52,8 @@ class TripPlannerUserTestCase(unittest.TestCase):
         post = self.app.post('/users',
                             headers=None,
                             data=json.dumps(dict(
-                                username="Eliel Gordon",
-                                email="eliel@example.com",
+                                username="Antonio",
+                                email="antonio@example.com",
                                 password="password"
                                 )),
                             content_type='application/json')
@@ -63,8 +63,8 @@ class TripPlannerUserTestCase(unittest.TestCase):
         fail_post = self.app.post('/users',
                             headers=None,
                             data=json.dumps(dict(
-                                username="Eliel Gordon",
-                                email="eliel@example.com",
+                                username="Antonio",
+                                email="antonio@example.com",
                                 password="password"
                                 )),
                             content_type='application/json')
@@ -165,13 +165,37 @@ class TripPlannerUserTestCase(unittest.TestCase):
 
     def test_getting_a_trip(self):
         # Post 2 users to database
-        self.app.post('/trips',
+        post = self.app.post('/trips',
                       headers=None,
                       data=json.dumps(dict(
                         destination="London, England",
                         completed=False,
                         start_date="Nov 26, 2017",
                         end_date="December 17, 2017",
+                        waypoints=[],
+                        isFavorite=False
+                      )),
+
+                      content_type='application/json'
+                      )
+
+        self.assertEqual(post.status_code, 201)
+
+        response = self.app.get('/trips',
+                                query_string=dict(id="")
+                                )
+        response = json.loads(response.data.decode())
+        self.assertEqual(response.status_code, 200)
+
+    def test_getting_all_trips(self):
+        response = self.app.get('/trips')
+        self.assertEqual(response.status_code, 200)
+
+    def test_patching_a_trip(self):
+
+        patch = self.app.patch('/trips',
+                      headers=None,
+                      data=json.dumps(dict(
                         waypoints=[
                             dict(
                                 destination="Spain",
@@ -182,18 +206,90 @@ class TripPlannerUserTestCase(unittest.TestCase):
                                     )
                                 ]
                             )
-                        ],
+                        ]
+                      )),
+                      query_string=dict(destination="London, England"),
+                      content_type='application/json'
+                      )
+
+        response = json.loads(patch.data.decode())
+        self.assertEqual(response.status_code, 200)
+
+    def test_validate_trip_parameters(self):
+        post = self.app.post('/trips',
+                      headers=None,
+                      data=json.dumps(dict(
+                        destination="Honolulu, Hawaii",
+                        waypoints=[],
                         isFavorite=False
                       )),
 
                       content_type='application/json'
                       )
 
-        response = self.app.get('/trips',
-                                query_string=dict(destination="London, England")
-                                )
-        response = json.loads(response.data.decode())
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(post.status_code, 400)
+
+    def test_validate_waypoint_parameters(self):
+        post = self.app.put('/trips',
+                      headers=None,
+                      data=json.dumps(dict(
+                        waypoints=[
+                            dict(
+                                location=[
+                                    dict(
+                                        longitude="38.9013833",
+                                        latitude="-96.6745109"
+                                    )
+                                ]
+                            )
+                        ],
+                      )),
+
+                      content_type='application/json'
+                      )
+
+        self.assertEqual(post.status_code, 400)
+        self.assertEqual(post.data.decode("utf-8"), '{"error": "missing destination for the waypoint"}')
+
+        post = self.app.put('/trips',
+                      headers=None,
+                      data=json.dumps(dict(
+                        waypoints=[
+                            dict(
+                                destination="Spain",
+                                location=[
+                                    dict(
+                                        longitude="38.9013833"
+                                    )
+                                ]
+                            )
+                        ],
+                      )),
+
+                      content_type='application/json'
+                      )
+
+        self.assertEqual(post.status_code, 400)
+        self.assertEqual(post.data.decode("utf-8"), '{"error": "missing part of the location for the waypoint"}')
+
+    def test_trip_delete(self):
+        deleted = self.app.delete('/trips',
+                                  headers=None,
+                                  query_string=dict(id=""),
+                                  content_type='application/json')
+
+        self.assertEqual(deleted.status_code, 200)
+
+
+    def test_fail_trip_delete(self):
+        deleted = self.app.delete('/users',
+                                  headers=None,
+                                  query_string=dict(id=""),
+                                  content_type='application/json')
+
+        self.assertEqual(deleted.status_code, 404)
+        self.assertEqual(deleted.data.decode("utf-8"), '{"error": "trip with id ... does not exist"}')
+
 
 if __name__ == '__main__':
     unittest.main()

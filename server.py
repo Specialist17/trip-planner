@@ -4,6 +4,7 @@ from pymongo import MongoClient
 from utils.mongo_json_encoder import JSONEncoder
 from bson.objectid import ObjectId
 import bcrypt
+# import User
 
 
 app = Flask(__name__)
@@ -81,6 +82,7 @@ class User(Resource):
 
         user_col.remove(user_to_delete)
         return ({'deleted': 'User with email ' + email + " has been deleted"}, 200, None)
+
 
 
 # Add api routes here

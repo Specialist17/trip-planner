@@ -1,5 +1,7 @@
 {
   "tests.py::TripPlannerTestCase::testGetUser": true,
+  "tests.py::TripPlannerUserTestCase": true,
+  "tests.py::TripPlannerUserTestCase::test_fail_post_a_user_with_already_created_email": true,
   "tests.py::TripPlannerUserTestCase::test_getting_a_trip": true,
   "tests.py::TripPlannerUserTestCase::test_update_a_user": true
 }
