@@ -1,6 +1,7 @@
 from flask import Flask, request, make_response
 from flask_restful import Resource, Api
 from pymongo import MongoClient
+from flask.views import MethodView
 from utils.mongo_json_encoder import JSONEncoder
 from bson.objectid import ObjectId
 import bcrypt
@@ -96,8 +97,45 @@ class User(Resource):
         return ({'deleted': 'User with email ' + email + " has been deleted"}, 200, None)
 
 
+class Trip(Resource):
+    def get(self):
+        """Get a trip. If no parameter was specified, then get all trips"""
+        args = request.args
+        trips_col = app.db.trips
+
+        if 'destination' in args or 'start_date' in args:
+            trip_destination = args.get('destination')
+            trip_start_date = args.get('start_date')
+            trip = trips_col.find_one({
+                'destination': trip_destination
+            })
+            if trip is None:
+                return ({'error': 'no trip found'}, 404, None)
+
+            return (trip, 200, None)
+
+        trips = trips_col.find()
+        trips_arr = []
+        for trip in trips:
+            trips_arr.append(trip)
+
+        return (trips_arr, 200, None)
+
+    def post(self):
+        trips_col = app.db.trips
+        json = request.json
+        print(json)
+
+        if 'destination' not in json and 'start_date' not in json:
+            return ({'error': 'missing required fields'}, 400, None)
+        else:
+            trips_col.insert_one(json)
+            return (json, 201, None)
+
+
 # Add api routes here
 api.add_resource(User, '/users')
+api.add_resource(Trip, '/trips')
 
 
 #  Custom JSON serializer for flask_restful

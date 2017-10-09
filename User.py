@@ -1,5 +1,6 @@
-
 from flask_restful import Resource
+from flask.views import MethodView
+
 
 # Write Resources here
 class User(Resource):
