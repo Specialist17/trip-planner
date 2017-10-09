@@ -18,10 +18,15 @@ api = Api(app)
 class User(Resource):
 
     def post(self):
-
+        user_col = app.db.users
         json = request.json
         print(json)
         if 'username' in json and 'email' in json and 'password' in json:
+            user = user_col.find_one({
+                'email': json['email']
+            })
+            if user:
+                return ({'error': 'user already exists'}, 409, None)
             app.db.users.insert_one(json)
             return (json, 201, None)
         elif 'username' in json and 'password' in json:
@@ -82,7 +87,6 @@ class User(Resource):
 
         user_col.remove(user_to_delete)
         return ({'deleted': 'User with email ' + email + " has been deleted"}, 200, None)
-
 
 
 # Add api routes here

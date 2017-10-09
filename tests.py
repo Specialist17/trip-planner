@@ -69,7 +69,7 @@ class TripPlannerUserTestCase(unittest.TestCase):
                                 )),
                             content_type='application/json')
 
-        self.assertEqual(fail_post.status_code, 404)
+        self.assertEqual(fail_post.status_code, 409)
 
 
     def test_post_a_user(self):
