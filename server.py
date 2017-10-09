@@ -51,13 +51,14 @@ class User(Resource):
         })
 
         if not user:
-            return (None, 404, None)
+            return ({'error': 'User with email ' + user_email + " does not exist"}, 404, None)
         else:
             return (user, 200, None)
 
     def put(self):
         user_email = request.args.get('email')
         username = request.json.get('username')
+        json = request.json
         print(user_email)
 
         if user_email is None:
@@ -68,9 +69,15 @@ class User(Resource):
         user = user_col.find_one({
             'email': user_email
         })
+        print(user)
 
         if user is not None:
-            user['username'] = username
+            if 'username' in json:
+                user['username'] = username
+
+            if 'email' in json:
+                user['email'] = json['email']
+
             user_col.save(user)
             return (user, 200, None)
 

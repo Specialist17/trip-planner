@@ -5,7 +5,6 @@
   "tests.py::TripPlannerUserTestCase::test_getting_all_trips": true,
   "tests.py::TripPlannerUserTestCase::test_patching_a_trip": true,
   "tests.py::TripPlannerUserTestCase::test_trip_delete": true,
-  "tests.py::TripPlannerUserTestCase::test_update_a_user": true,
   "tests.py::TripPlannerUserTestCase::test_validate_trip_parameters": true,
   "tests.py::TripPlannerUserTestCase::test_validate_waypoint_parameters": true
 }

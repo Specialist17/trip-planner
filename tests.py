@@ -76,8 +76,8 @@ class TripPlannerUserTestCase(unittest.TestCase):
         response = self.app.post('/users',
                             headers=None,
                             data=json.dumps(dict(
-                                username="Eliel Gordon",
-                                email="eliel@example.com",
+                                username="el negro",
+                                email="jilipolla@example.com",
                                 password="password"
                                 )),
                             content_type='application/json')
@@ -100,8 +100,8 @@ class TripPlannerUserTestCase(unittest.TestCase):
         post = self.app.post('/users',
                             headers=None,
                             data=json.dumps(dict(
-                                username="Eliel Gordon",
-                                email="eliel@example.com",
+                                username="Papo",
+                                email="pipo@example.com",
                                 password="password"
                                 )),
                             content_type='application/json')
@@ -113,23 +113,22 @@ class TripPlannerUserTestCase(unittest.TestCase):
                             data=json.dumps(dict(
                                 username="Fabio",
                                 email="fabio@example.com",
-                                password="password"
                                 )),
-                            query_string=dict(email="eliel@example.com"),
+                            query_string=dict(email="pipo@example.com"),
                             content_type='application/json')
         self.assertEqual(put.status_code, 200)
 
-        get_update_user = self.app.get('/users',
-                                       headers=None,
-                                       query_string=dict(email="eliel@example.com"),
-                                       content_type='application/json')
-        self.assertEqual(get_update_user.status_code, 404)
+        # get_update_user = self.app.get('/users',
+        #                                headers=None,
+        #                                query_string=dict(email="eliel@example.com"),
+        #                                content_type='application/json')
+        # self.assertEqual(get_update_user.status_code, 404)
 
         put = self.app.put('/users',
                             data=json.dumps(dict(
                                 username="Fabio"
                                 )),
-                            query_string=dict(email="eliel@example.com"),
+                            query_string=dict(email="pipo@example.com"),
                             content_type='application/json')
         self.assertEqual(put.status_code, 404)
 
