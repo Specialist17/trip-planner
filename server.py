@@ -74,7 +74,6 @@ class User(Resource):
             print("no se posteó ná")
             return (None, 400, "Hola negro que pajó?")
 
-
     def get(self):
         user_email = request.args.get('email')
         user_collection = app.db.users
@@ -96,7 +95,7 @@ class User(Resource):
             else:
                 return('login failed', 404, None)
 
-    # @auth_function
+    @auth_function
     def put(self):
         user_email = request.args.get('email')
         username = request.json.get('username')
@@ -119,8 +118,9 @@ class User(Resource):
 
             if 'email' in json:
                 user['email'] = json['email']
-
             user_col.save(user)
+
+            user.pop('password')
             return (user, 200, None)
 
         return ({'error': 'no user with that email found'}, 404, None)
