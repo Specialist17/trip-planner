@@ -1,10 +1,10 @@
 from flask import Flask, request, make_response
 from flask_restful import Resource, Api
-from pymongo import MongoClient
-from flask.views import MethodView
+from pymongo import MongoClient, ReturnDocument
 from utils.mongo_json_encoder import JSONEncoder
 from bson.objectid import ObjectId
 import bcrypt
+import pdb
 # import User
 
 
@@ -14,6 +14,32 @@ app.db = mongo.trip_planner_development
 app.bcrypt_rounds = 12
 api = Api(app)
 
+
+def auth_validation(email, user_password):
+    # Find user by email
+    user_col = app.db.users
+    database_user = user_col.find_one({'email': email})
+    db_password = database_user['password']
+    password = user_password.encode('utf-8')
+    # pdb.set_trace()
+    # Check if client password from login matches database password
+    if bcrypt.hashpw(password, db_password) == db_password:
+        # Let them in
+        return True
+    return False
+
+
+def auth_function(func):
+    def wrapper(*args, **kwargs):
+        auth = request.authorization
+        if not auth_validation(auth.username, auth.password):
+            return (
+                    'Could not verify your access level for that URL.\n'
+                    'You have to login with proper credentials', 401,
+                    {'WWW-Authenticate': 'Basic realm="Login Required"'}
+                   )
+        return func(*args, **kwargs)
+    return wrapper
 
 # Write Resources here
 class User(Resource):
@@ -28,7 +54,17 @@ class User(Resource):
             })
             if user:
                 return ({'error': 'user already exists'}, 409, None)
+
+            encoded_password = json['password'].encode('utf-8')
+            app.bcrypt_rounds = 12
+
+            hashed = bcrypt.hashpw(
+                encoded_password, bcrypt.gensalt(app.bcrypt_rounds)
+            )
+
+            json['password'] = hashed
             app.db.users.insert_one(json)
+            json.pop('password')
             return (json, 201, None)
         elif 'username' in json and 'password' in json:
                 return ({'error': 'no email was specified'}, 400, None)
@@ -38,24 +74,29 @@ class User(Resource):
             print("no se posteó ná")
             return (None, 400, "Hola negro que pajó?")
 
+
     def get(self):
-        """Tamo xoticos"""
         user_email = request.args.get('email')
-
+        user_collection = app.db.users
+        json_user = request.args
+        jsonPassword = json_user.get('password')
         if user_email is None:
-            return ({'error': 'no email parameter'}, 404, None)
-
-        user_col = app.db.users
-
-        user = user_col.find_one({
-            'email': user_email
-        })
-
-        if not user:
-            return ({'error': 'User with email ' + user_email + " does not exist"}, 404, None)
+            return("no parameter in url", 404, None)
+        user = user_collection.find_one({"email": user_email})
+        # pdb.set_trace()
+        if user is None:
+            print('no user exists')
+            return None
         else:
-            return (user, 200, None)
+            encodedPassword = jsonPassword.encode('utf-8')
+            if bcrypt.hashpw(encodedPassword, user['password']) == user['password']:
+                user.pop('password')
 
+                return(user, 200, None)
+            else:
+                return('login failed', 404, None)
+
+    # @auth_function
     def put(self):
         user_email = request.args.get('email')
         username = request.json.get('username')
@@ -136,56 +177,39 @@ class Trip(Resource):
         args = request.args
         trips_col = app.db.trips
 
-        if 'destination' in args or 'start_date' in args:
-            trip_destination = args.get('destination')
-            trip_start_date = args.get('start_date')
 
-        user_col = app.db.users
+        trip_destination = args.get('destination') if args.get('destination') else None
+        trip_start_date = args.get('start_date') if args.get('start_date') else None
 
-        user = user_col.find_one({
-            'email': user_email
+        trip = trips_col.find_one({
+            'destination': trip_destination
         })
-        print(user)
 
-        if user is not None:
-            if 'username' in json:
-                user['username'] = username
+        if trip is not None:
+            if 'destination' in json:
+                trip['destination'] = json['destination']
 
-            if 'email' in json:
-                user['email'] = json['email']
+            if 'start_date' in json:
+                trip['start_date'] = json['start_date']
 
-            user_col.save(user)
-            return (user, 200, None)
+            trips_col.save(trip)
+            return (trip, 200, None)
 
         return ({'error': 'no user with that email found'}, 404, None)
 
     def patch(self):
-        user_email = request.args.get('email')
-        username = request.json.get('username')
-        json = request.json
-        print(user_email)
+        destination = request.args.get('destination')
+        waypoints = request.json.get('waypoints')
 
-        if user_email is None:
-            return ({'error': 'no specified email for user'}, 404, None)
+        trips_col = app.db.trips
 
-        user_col = app.db.users
+        updated_trip = trips_col.find_one_and_update(
+            {'destination': destination},
+            {'$destination': destination,
+             '$waypoints': waypoints},
+            return_document=ReturnDocument.AFTER)
 
-        user = user_col.find_one({
-            'email': user_email
-        })
-        print(user)
-
-        if user is not None:
-            if 'username' in json:
-                user['username'] = username
-
-            if 'email' in json:
-                user['email'] = json['email']
-
-            user_col.save(user)
-            return (user, 200, None)
-
-        return ({'error': 'no user with that email found'}, 404, None)
+        return(updated_trip, 200, None)
 
 
 # Add api routes here
