@@ -42,7 +42,10 @@ class TripPlannerUserTestCase(unittest.TestCase):
         # 3 Make a get request to fetch the posted user
 
         response = self.app.get('/users',
-                                query_string=dict(email="jiripolla@example.com")
+                                query_string=dict(
+                                    email="jiripolla@example.com",
+                                    password="password"
+                                    )
                                 )
 
         response_json = json.loads(response.data.decode())
@@ -111,7 +114,7 @@ class TripPlannerUserTestCase(unittest.TestCase):
         self.assertEqual(post.status_code, 201)
 
         put = self.app.put('/users',
-                            headers=None,
+                            headers={'Authorization': 'Basic cGlwb0BleGFtcGxlLmNvbTpwYXNzd29yZA=='},
                             data=json.dumps(dict(
                                 username="Fabio",
                                 email="fabio@example.com",
@@ -120,19 +123,24 @@ class TripPlannerUserTestCase(unittest.TestCase):
                             content_type='application/json')
         self.assertEqual(put.status_code, 200)
 
-        get_update_user = self.app.get('/users',
-                                       headers=None,
-                                       query_string=dict(email="eliel@example.com"),
-                                       content_type='application/json')
-        self.assertEqual(get_update_user.status_code, 404)
-
         put = self.app.put('/users',
+                            headers={'Authorization': 'Basic cGlwb0BleGFtcGxlLmNvbTpwYXNzd29yZA=='},
                             data=json.dumps(dict(
-                                username="Fabio"
+                                username="Diablo"
                                 )),
                             query_string=dict(email="pipo@example.com"),
                             content_type='application/json')
         self.assertEqual(put.status_code, 404)
+
+    def test_fail_get_user(self):
+        get_update_user = self.app.get('/users',
+                                       headers=None,
+                                       query_string=dict(
+                                           email="papapapap@example.com",
+                                           password="password"
+                                           ),
+                                       content_type='application/json')
+        self.assertEqual(get_update_user.status_code, 404)
 
     def test_user_delete(self):
         email = "eliel@example.com"

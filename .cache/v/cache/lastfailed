@@ -1,15 +1,9 @@
 {
-  "tests.py": true,
   "tests.py::TripPlannerTestCase::testGetUser": true,
-  "tests.py::TripPlannerUserTestCase::test_fail_post_a_user_with_already_created_email": true,
   "tests.py::TripPlannerUserTestCase::test_fail_trip_delete": true,
-  "tests.py::TripPlannerUserTestCase::test_getting_a_user": true,
   "tests.py::TripPlannerUserTestCase::test_patching_a_trip": true,
-  "tests.py::TripPlannerUserTestCase::test_post_a_user": true,
   "tests.py::TripPlannerUserTestCase::test_trip_delete": true,
-  "tests.py::TripPlannerUserTestCase::test_update_a_user": true,
   "tests.py::TripPlannerUserTestCase::test_updating_a_trip": true,
-  "tests.py::TripPlannerUserTestCase::test_user_delete": true,
   "tests.py::TripPlannerUserTestCase::test_validate_parameters_post_trip": true,
   "tests.py::TripPlannerUserTestCase::test_validate_trip_parameters": true,
   "tests.py::TripPlannerUserTestCase::test_validate_waypoint_parameters": true

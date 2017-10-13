@@ -19,7 +19,10 @@ def auth_validation(email, user_password):
     # Find user by email
     user_col = app.db.users
     database_user = user_col.find_one({'email': email})
-    db_password = database_user['password']
+    if database_user is None:
+        return({"error": "email not found"}, 404, None)
+    db_password = database_user.get('password')
+
     password = user_password.encode('utf-8')
     # pdb.set_trace()
     # Check if client password from login matches database password
@@ -85,7 +88,7 @@ class User(Resource):
         # pdb.set_trace()
         if user is None:
             print('no user exists')
-            return None
+            return({'error': 'User with email ' + user_email + " does not exist"}, 404, None)
         else:
             encodedPassword = jsonPassword.encode('utf-8')
             if bcrypt.hashpw(encodedPassword, user['password']) == user['password']:
