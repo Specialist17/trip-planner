@@ -128,6 +128,7 @@ class User(Resource):
 
         return ({'error': 'no user with that email found'}, 404, None)
 
+    @auth_function
     def delete(self):
         user_col = app.db.users
         email = request.args.get('email')
@@ -142,6 +143,8 @@ class User(Resource):
 
 
 class Trip(Resource):
+
+    @auth_function
     def get(self):
         """Get a trip. If no parameter was specified, then get all trips"""
         args = request.args

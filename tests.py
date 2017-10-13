@@ -156,14 +156,14 @@ class TripPlannerUserTestCase(unittest.TestCase):
         self.assertEqual(post.status_code, 201)
 
         deleted = self.app.delete('/users',
-                                  headers=None,
+                                  headers={'Authorization': 'Basic cGlwb0BleGFtcGxlLmNvbTpwYXNzd29yZA=='},
                                   query_string=dict(email=email),
                                   content_type='application/json')
 
         self.assertEqual(deleted.status_code, 200)
 
         deleted = self.app.delete('/users',
-                                  headers=None,
+                                  headers={'Authorization': 'Basic cGlwb0BleGFtcGxlLmNvbTpwYXNzd29yZA=='},
                                   query_string=dict(email=email),
                                   content_type='application/json')
 
@@ -178,7 +178,7 @@ class TripPlannerUserTestCase(unittest.TestCase):
     def test_getting_a_trip(self):
         # Post 2 users to database
         post = self.app.post('/trips',
-                             headers=None,
+                             headers={'Authorization': 'Basic cGlwb0BleGFtcGxlLmNvbTpwYXNzd29yZA=='},
                              data=json.dumps(dict(
                                 destination="London, England",
                                 completed=False,
@@ -194,13 +194,14 @@ class TripPlannerUserTestCase(unittest.TestCase):
         self.assertEqual(post.status_code, 201)
 
         response = self.app.get('/trips',
+                                headers={'Authorization': 'Basic cGlwb0BleGFtcGxlLmNvbTpwYXNzd29yZA=='},
                                 query_string=dict(destination="London, England")
                                 )
         self.assertEqual(response.status_code, 200)
 
     def test_getting_all_trips(self):
         self.app.post('/trips',
-                      headers=None,
+                      headers={'Authorization': 'Basic cGlwb0BleGFtcGxlLmNvbTpwYXNzd29yZA=='},
                       data=json.dumps(dict(
                         destination="London, England",
                         completed=False,
@@ -212,7 +213,9 @@ class TripPlannerUserTestCase(unittest.TestCase):
 
                       content_type='application/json'
                       )
-        response = self.app.get('/trips')
+        response = self.app.get('/trips',
+                                headers={'Authorization': 'Basic cGlwb0BleGFtcGxlLmNvbTpwYXNzd29yZA=='}
+                                )
         self.assertEqual(response.status_code, 200)
 
         boolean = isinstance(json.loads(response.data.decode()), list)
