@@ -248,7 +248,6 @@ class Trip(Resource):
         return(None, 200, None)
 
 
-
 # Add api routes here
 api.add_resource(User, '/users')
 api.add_resource(Trip, '/trips')

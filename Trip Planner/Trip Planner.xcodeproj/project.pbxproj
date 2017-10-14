@@ -14,6 +14,8 @@
 		90E1E6971F91C9EA0063AAA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90E1E6951F91C9EA0063AAA7 /* LaunchScreen.storyboard */; };
 		90E1E6A21F91C9EA0063AAA7 /* Trip_PlannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E1E6A11F91C9EA0063AAA7 /* Trip_PlannerTests.swift */; };
 		90E1E6AD1F91C9EB0063AAA7 /* Trip_PlannerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E1E6AC1F91C9EB0063AAA7 /* Trip_PlannerUITests.swift */; };
+		90F713E01F92763100672498 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F713DF1F92763100672498 /* Networking.swift */; };
+		90F713E21F92775700672498 /* BasicAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F713E11F92775700672498 /* BasicAuth.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		90E1E6A81F91C9EB0063AAA7 /* Trip PlannerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Trip PlannerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		90E1E6AC1F91C9EB0063AAA7 /* Trip_PlannerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip_PlannerUITests.swift; sourceTree = "<group>"; };
 		90E1E6AE1F91C9EB0063AAA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		90F713DF1F92763100672498 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		90F713E11F92775700672498 /* BasicAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicAuth.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,8 @@
 				90E1E6931F91C9EA0063AAA7 /* Assets.xcassets */,
 				90E1E6951F91C9EA0063AAA7 /* LaunchScreen.storyboard */,
 				90E1E6981F91C9EA0063AAA7 /* Info.plist */,
+				90F713DF1F92763100672498 /* Networking.swift */,
+				90F713E11F92775700672498 /* BasicAuth.swift */,
 			);
 			path = "Trip Planner";
 			sourceTree = "<group>";
@@ -259,7 +265,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90F713E01F92763100672498 /* Networking.swift in Sources */,
 				90E1E68F1F91C9EA0063AAA7 /* ViewController.swift in Sources */,
+				90F713E21F92775700672498 /* BasicAuth.swift in Sources */,
 				90E1E68D1F91C9EA0063AAA7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
