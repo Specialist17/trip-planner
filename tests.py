@@ -362,18 +362,42 @@ class TripPlannerUserTestCase(unittest.TestCase):
             )
 
     def test_trip_delete(self):
+
+        post = self.app.post('/trips',
+                             headers={'Authorization': 'Basic cGlwb0BleGFtcGxlLmNvbTpwYXNzd29yZA=='},
+                             data=json.dumps(dict(
+                                destination="London, England",
+                                completed=False,
+                                start_date="Nov 26, 2017",
+                                end_date="December 17, 2017",
+                                waypoints=[],
+                                isFavorite=False
+                              )),
+
+                             content_type='application/json'
+                             )
+
+        response = self.app.get('/trips',
+                                headers={'Authorization': 'Basic cGlwb0BleGFtcGxlLmNvbTpwYXNzd29yZA=='},
+                                query_string=dict(destination="London, England")
+                                )
+        self.assertEqual(response.status_code, 200)
+
+        trip = json.loads(response.data.decode())
+        trip_id = trip["_id"]
+
         deleted = self.app.delete('/trips',
-                                  headers=None,
-                                  query_string=dict(id=""),
+                                  headers={'Authorization': 'Basic cGlwb0BleGFtcGxlLmNvbTpwYXNzd29yZA=='},
+                                  query_string=dict(_id=trip_id),
                                   content_type='application/json')
 
         self.assertEqual(deleted.status_code, 200)
 
 
     def test_fail_trip_delete(self):
-        deleted = self.app.delete('/users',
-                                  headers=None,
-                                  query_string=dict(id=""),
+        deleted = self.app.delete('/trips',
+                                  headers={'Authorization': 'Basic cGlwb0BleGFtcGxlLmNvbTpwYXNzd29yZA=='},
+                                  query_string=dict(id="1233412412"),
                                   content_type='application/json')
 
         self.assertEqual(deleted.status_code, 404)

@@ -158,14 +158,13 @@ class Trip(Resource):
             })
             if trip is None:
                 return ({'error': 'no trip found'}, 404, None)
-
+            print(trip)
             return (trip, 200, None)
 
         trips = trips_col.find()
         trips_arr = []
         for trip in trips:
             trips_arr.append(trip)
-        print("trips: " + str(isinstance(trips_arr, list)))
         return (trips_arr, 200, None)
 
     @auth_function
@@ -209,7 +208,6 @@ class Trip(Resource):
                     None
                     )
 
-
         if trip is not None:
             if 'destination' in json:
                 trip['destination'] = json['destination']
@@ -236,6 +234,19 @@ class Trip(Resource):
     #         return_document=ReturnDocument.AFTER)
     #
     #     return(updated_trip, 200, None)
+
+    @auth_function
+    def delete(self):
+        args = request.args
+        trip_id = args.get('_id') if args.get('_id') else None
+
+        if trip_id is None:
+            return({'error': 'trip with id does not exist'}, 404, None)
+
+        trips_col = app.db.trips
+        trips_col.delete_one({'_id': trip_id})
+        return(None, 200, None)
+
 
 
 # Add api routes here

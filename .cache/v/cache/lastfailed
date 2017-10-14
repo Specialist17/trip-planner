@@ -1,7 +1,5 @@
 {
   "tests.py::TripPlannerTestCase::testGetUser": true,
-  "tests.py::TripPlannerUserTestCase::test_fail_trip_delete": true,
   "tests.py::TripPlannerUserTestCase::test_patching_a_trip": true,
-  "tests.py::TripPlannerUserTestCase::test_trip_delete": true,
   "tests.py::TripPlannerUserTestCase::test_validate_trip_parameters": true
 }
