@@ -39,7 +39,7 @@ def auth_function(func):
             return (
                     'Could not verify your access level for that URL.\n'
                     'You have to login with proper credentials', 401,
-                    {'WWW-Authenticate': 'Basic realm="Login Required"'}
+                    {'Authentication': 'Basic base64"'}
                    )
         return func(*args, **kwargs)
     return wrapper
@@ -74,8 +74,8 @@ class User(Resource):
         elif 'username' not in json or 'email' not in json or 'password' not in json:
                 return ({'error': 'missing fields'}, 400, None)
         else:
-            print("no se posteó ná")
-            return (None, 400, "Hola negro que pajó?")
+            print("no se posteo na")
+            return (None, 400, "Hola negro que pajo?")
 
     def get(self):
         user_email = request.args.get('email')
@@ -168,6 +168,7 @@ class Trip(Resource):
         print("trips: " + str(isinstance(trips_arr, list)))
         return (trips_arr, 200, None)
 
+    @auth_function
     def post(self):
         trips_col = app.db.trips
         json = request.json
@@ -179,17 +180,19 @@ class Trip(Resource):
             trips_col.insert_one(json)
             return (json, 201, None)
 
+    @auth_function
     def put(self):
         args = request.args
+        json = request.json
         trips_col = app.db.trips
-
 
         trip_destination = args.get('destination') if args.get('destination') else None
         trip_start_date = args.get('start_date') if args.get('start_date') else None
-
+        print(trip_destination)
         trip = trips_col.find_one({
             'destination': trip_destination
         })
+        print(trip)
 
         if trip is not None:
             if 'destination' in json:
@@ -201,7 +204,7 @@ class Trip(Resource):
             trips_col.save(trip)
             return (trip, 200, None)
 
-        return ({'error': 'no user with that email found'}, 404, None)
+        return ({'error': 'no trip with that destination found'}, 404, None)
 
     def patch(self):
         destination = request.args.get('destination')

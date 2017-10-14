@@ -25,6 +25,14 @@ class TripPlannerUserTestCase(unittest.TestCase):
         db.drop_collection('users')
         db.drop_collection('trips')
 
+    def generateBasicAuthHeader():
+        concatString = username + ":" + password
+        utf8 = concatString.encode('utf-8')
+        base64String = base64.b64encode(utf8)
+        finalString = "Basic " + base64String
+
+        return finalString
+
     # _______________________USER TEST CASES_______________________
     # User tests, fill with test methods
     def test_getting_a_user(self):
@@ -200,19 +208,7 @@ class TripPlannerUserTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_getting_all_trips(self):
-        self.app.post('/trips',
-                      headers={'Authorization': 'Basic cGlwb0BleGFtcGxlLmNvbTpwYXNzd29yZA=='},
-                      data=json.dumps(dict(
-                        destination="London, England",
-                        completed=False,
-                        start_date="Nov 26, 2017",
-                        end_date="December 17, 2017",
-                        waypoints=[],
-                        isFavorite=False
-                      )),
 
-                      content_type='application/json'
-                      )
         response = self.app.get('/trips',
                                 headers={'Authorization': 'Basic cGlwb0BleGFtcGxlLmNvbTpwYXNzd29yZA=='}
                                 )
@@ -223,14 +219,29 @@ class TripPlannerUserTestCase(unittest.TestCase):
 
     def test_failing_to_get_a_trip(self):
         response = self.app.get('/trips',
+                                headers={'Authorization': 'Basic cGlwb0BleGFtcGxlLmNvbTpwYXNzd29yZA=='},
                                 query_string=dict(destination="London, Guayanilla")
                                 )
         self.assertEqual(response.status_code, 404)
 
     def test_patching_a_trip(self):
 
+        post = self.app.post('/trips',
+                             headers={'Authorization': 'Basic cGlwb0BleGFtcGxlLmNvbTpwYXNzd29yZA=='},
+                             data=json.dumps(dict(
+                                destination="London, England",
+                                completed=False,
+                                start_date="Nov 26, 2017",
+                                end_date="December 17, 2017",
+                                waypoints=[],
+                                isFavorite=False
+                              )),
+
+                             content_type='application/json'
+                             )
+
         patch = self.app.patch('/trips',
-                               headers=None,
+                               headers={'Authorization': 'Basic cGlwb0BleGFtcGxlLmNvbTpwYXNzd29yZA=='},
                                data=json.dumps(dict(
                                 waypoints=[
                                     dict(
@@ -253,9 +264,23 @@ class TripPlannerUserTestCase(unittest.TestCase):
 
     def test_updating_a_trip(self):
 
-        patch = self.app.put('/trips',
-                             headers=None,
+        post = self.app.post('/trips',
+                             headers={'Authorization': 'Basic cGlwb0BleGFtcGxlLmNvbTpwYXNzd29yZA=='},
                              data=json.dumps(dict(
+                                destination="London, England",
+                                completed=False,
+                                start_date="Nov 26, 2017",
+                                end_date="December 17, 2017",
+                                waypoints=[],
+                                isFavorite=False
+                              )),
+
+                             content_type='application/json'
+                             )
+
+        put = self.app.put('/trips',
+                           headers={'Authorization': 'Basic cGlwb0BleGFtcGxlLmNvbTpwYXNzd29yZA=='},
+                           data=json.dumps(dict(
                                   destination="London, England",
                                   completed=False,
                                   start_date="Nov 26, 2017",
@@ -273,12 +298,12 @@ class TripPlannerUserTestCase(unittest.TestCase):
                                   ],
                                   isFavorite=False
                                )),
-                             query_string=dict(destination="London, England"),
-                             content_type='application/json'
-                             )
+                           query_string=dict(destination="London, England"),
+                           content_type='application/json'
+                           )
 
-        response = json.loads(patch.data.decode())
-        self.assertEqual(response.status_code, 200)
+        # response = json.loads(patch.data.decode())
+        self.assertEqual(put.status_code, 200)
 
 
     def test_validate_parameters_post_trip(self):
