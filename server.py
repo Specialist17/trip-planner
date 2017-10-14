@@ -174,7 +174,7 @@ class Trip(Resource):
         json = request.json
         print(json)
 
-        if 'destination' not in json and 'start_date' not in json:
+        if 'destination' not in json or 'start_date' not in json:
             return ({'error': 'missing required fields'}, 400, None)
         else:
             trips_col.insert_one(json)
@@ -188,11 +188,27 @@ class Trip(Resource):
 
         trip_destination = args.get('destination') if args.get('destination') else None
         trip_start_date = args.get('start_date') if args.get('start_date') else None
-        print(trip_destination)
         trip = trips_col.find_one({
             'destination': trip_destination
         })
-        print(trip)
+
+        if json.get('waypoints'):
+            waypoints = json.get('waypoints')
+
+            if waypoints[0].get('destination') is None:
+                return (
+                    {'error': 'Updating/Adding a waypoint without specifying destination'},
+                    403,
+                    None
+                    )
+            location = waypoints[0].get('location')
+            if location.get('latitude') is None or location.get('longitude') is None:
+                return (
+                    {'error': 'latitude or longitude is missing for the waypoint'},
+                    403,
+                    None
+                    )
+
 
         if trip is not None:
             if 'destination' in json:
@@ -206,19 +222,20 @@ class Trip(Resource):
 
         return ({'error': 'no trip with that destination found'}, 404, None)
 
-    def patch(self):
-        destination = request.args.get('destination')
-        waypoints = request.json.get('waypoints')
-
-        trips_col = app.db.trips
-
-        updated_trip = trips_col.find_one_and_update(
-            {'destination': destination},
-            {'$destination': destination,
-             '$waypoints': waypoints},
-            return_document=ReturnDocument.AFTER)
-
-        return(updated_trip, 200, None)
+    # @auth_function
+    # def patch(self):
+    #     destination = request.args.get('destination')
+    #     waypoints = request.json.get('waypoints')
+    #
+    #     trips_col = app.db.trips
+    #
+    #     updated_trip = trips_col.find_one_and_update(
+    #         {'destination': destination},
+    #         {'$destination': destination,
+    #          '$waypoints': waypoints},
+    #         return_document=ReturnDocument.AFTER)
+    #
+    #     return(updated_trip, 200, None)
 
 
 # Add api routes here
