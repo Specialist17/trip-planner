@@ -16,6 +16,8 @@
 		90E1E6AD1F91C9EB0063AAA7 /* Trip_PlannerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E1E6AC1F91C9EB0063AAA7 /* Trip_PlannerUITests.swift */; };
 		90F713E01F92763100672498 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F713DF1F92763100672498 /* Networking.swift */; };
 		90F713E21F92775700672498 /* BasicAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F713E11F92775700672498 /* BasicAuth.swift */; };
+		90F713E51F92D90E00672498 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F713E41F92D90E00672498 /* User.swift */; };
+		90F713E71F92D91800672498 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F713E61F92D91800672498 /* Trip.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		90E1E6AE1F91C9EB0063AAA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		90F713DF1F92763100672498 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		90F713E11F92775700672498 /* BasicAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicAuth.swift; sourceTree = "<group>"; };
+		90F713E41F92D90E00672498 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		90F713E61F92D91800672498 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,7 @@
 		90E1E68B1F91C9EA0063AAA7 /* Trip Planner */ = {
 			isa = PBXGroup;
 			children = (
+				90F713E31F92D8EE00672498 /* Model */,
 				90E1E68C1F91C9EA0063AAA7 /* AppDelegate.swift */,
 				90E1E68E1F91C9EA0063AAA7 /* ViewController.swift */,
 				90E1E6901F91C9EA0063AAA7 /* Main.storyboard */,
@@ -129,6 +134,15 @@
 				90E1E6AE1F91C9EB0063AAA7 /* Info.plist */,
 			);
 			path = "Trip PlannerUITests";
+			sourceTree = "<group>";
+		};
+		90F713E31F92D8EE00672498 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				90F713E41F92D90E00672498 /* User.swift */,
+				90F713E61F92D91800672498 /* Trip.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,9 +279,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90F713E71F92D91800672498 /* Trip.swift in Sources */,
 				90F713E01F92763100672498 /* Networking.swift in Sources */,
 				90E1E68F1F91C9EA0063AAA7 /* ViewController.swift in Sources */,
 				90F713E21F92775700672498 /* BasicAuth.swift in Sources */,
+				90F713E51F92D90E00672498 /* User.swift in Sources */,
 				90E1E68D1F91C9EA0063AAA7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,8 +1,7 @@
 from flask import Flask, request, make_response
 from flask_restful import Resource, Api
-from pymongo import MongoClient, ReturnDocument
+from pymongo import MongoClient
 from utils.mongo_json_encoder import JSONEncoder
-from bson.objectid import ObjectId
 import bcrypt
 import pdb
 # import User
@@ -28,20 +27,24 @@ def auth_validation(email, user_password):
     # Check if client password from login matches database password
     if bcrypt.hashpw(password, db_password) == db_password:
         # Let them in
-        return True
-    return False
+        return (database_user["_id"], 200, None)
+    return (None, 400, None)
 
 
 def auth_function(func):
     def wrapper(*args, **kwargs):
         auth = request.authorization
-        if not auth_validation(auth.username, auth.password):
+        print(auth)
+        validation = auth_validation(auth.username, auth.password)
+        # print(validation)
+        if validation[1] is 400:
             return (
                     'Could not verify your access level for that URL.\n'
                     'You have to login with proper credentials', 401,
                     {'Authentication': 'Basic base64"'}
                    )
-        return func(*args, **kwargs)
+        else:
+            return func(*args, validation[0], **kwargs)
     return wrapper
 
 # Write Resources here
@@ -50,7 +53,6 @@ class User(Resource):
     def post(self):
         user_col = app.db.users
         json = request.json
-        print(json)
         if 'username' in json and 'email' in json and 'password' in json:
             user = user_col.find_one({
                 'email': json['email']
@@ -99,11 +101,10 @@ class User(Resource):
                 return('login failed', 404, None)
 
     @auth_function
-    def put(self):
+    def put(self, user_id):
         user_email = request.args.get('email')
         username = request.json.get('username')
         json = request.json
-        print(user_email)
 
         if user_email is None:
             return ({'error': 'no specified email for user'}, 404, None)
@@ -113,7 +114,6 @@ class User(Resource):
         user = user_col.find_one({
             'email': user_email
         })
-        print(user)
 
         if user is not None:
             if 'username' in json:
@@ -129,7 +129,7 @@ class User(Resource):
         return ({'error': 'no user with that email found'}, 404, None)
 
     @auth_function
-    def delete(self):
+    def delete(self, user_id):
         user_col = app.db.users
         email = request.args.get('email')
         user_to_delete = user_col.find_one({
@@ -145,10 +145,12 @@ class User(Resource):
 class Trip(Resource):
 
     @auth_function
-    def get(self):
+    def get(self, user_id):
         """Get a trip. If no parameter was specified, then get all trips"""
         args = request.args
         trips_col = app.db.trips
+
+        print("user id: " + str(user_id))
 
         if 'destination' in args or 'start_date' in args:
             trip_destination = args.get('destination')
@@ -158,7 +160,7 @@ class Trip(Resource):
             })
             if trip is None:
                 return ({'error': 'no trip found'}, 404, None)
-            print(trip)
+
             return (trip, 200, None)
 
         trips = trips_col.find()
@@ -168,25 +170,29 @@ class Trip(Resource):
         return (trips_arr, 200, None)
 
     @auth_function
-    def post(self):
+    def post(self, user_id):
         trips_col = app.db.trips
         json = request.json
         print(json)
 
-        if 'destination' not in json or 'start_date' not in json:
+        if ('destination' not in json
+        or 'start_date' not in json
+        or user_id is None):
             return ({'error': 'missing required fields'}, 400, None)
         else:
+            json['user_id'] = user_id
             trips_col.insert_one(json)
             return (json, 201, None)
 
     @auth_function
-    def put(self):
+    def put(self, user_id):
         args = request.args
         json = request.json
         trips_col = app.db.trips
 
         trip_destination = args.get('destination') if args.get('destination') else None
         trip_start_date = args.get('start_date') if args.get('start_date') else None
+
         trip = trips_col.find_one({
             'destination': trip_destination
         })
@@ -236,7 +242,7 @@ class Trip(Resource):
     #     return(updated_trip, 200, None)
 
     @auth_function
-    def delete(self):
+    def delete(self, id):
         args = request.args
         trip_id = args.get('_id') if args.get('_id') else None
 

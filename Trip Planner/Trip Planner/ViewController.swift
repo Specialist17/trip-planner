@@ -14,11 +14,22 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let basicAuthHeaders = BasicAuth.generateBasicAuthHeader(username: "fernando@mail.com", password: "password")
-        print(basicAuthHeaders)
+        
         Networking.instance.fetch(route: Route.trips(tripId: 1), headers: ["Authorization": basicAuthHeaders]) { (data) in
             
             let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-            print(json)
+            
+            guard let trips = json as Array else {
+                return
+            }
+            
+            for item in trips {
+                print(item)
+            }
+            
+//            let trips = try? JSONDecoder().decode(Trip.self, from: data)
+//
+//            print(trips)
             
         }
     }

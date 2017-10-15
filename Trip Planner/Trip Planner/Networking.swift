@@ -65,7 +65,7 @@ class Networking {
             }
 
             completion(data)
-            }.resume()
+        }.resume()
 
     }
 }
