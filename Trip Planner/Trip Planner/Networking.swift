@@ -10,7 +10,7 @@ import Foundation
 
 enum Route {
     case user
-    case trips(tripId: Int)
+    case trips
 
 
     // Path
@@ -28,8 +28,8 @@ enum Route {
         switch self {
         case .user:
             return [:]
-        case let .trips(tripId):
-            return ["search[postId]": "\(tripId)", "page": "2"]
+        case .trips:
+            return [:]
         }
     }
     

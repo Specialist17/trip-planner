@@ -1,5 +1,6 @@
 {
   "tests.py::TripPlannerTestCase::testGetUser": true,
+  "tests.py::TripPlannerUserTestCase::test_getting_all_trips": true,
   "tests.py::TripPlannerUserTestCase::test_patching_a_trip": true,
   "tests.py::TripPlannerUserTestCase::test_validate_trip_parameters": true
 }

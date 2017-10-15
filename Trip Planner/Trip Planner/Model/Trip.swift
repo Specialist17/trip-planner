@@ -15,6 +15,7 @@ struct Trip: Decodable {
     var destination: String!
     var start_date: String!
     var end_date: String!
+    var trips = [Trip]()
 //    var waypoints: [Dictionary<String, Any>]
 //    waypoints: [Dictionary<String, Any>]
 //    id: String,
@@ -31,25 +32,46 @@ struct Trip: Decodable {
 extension Trip {
     
     enum TripsKeys: String, CodingKey {
+        case trips
 //        case id = "_id"
-        case completed
-        case destination
-        case start_date
-        case end_date
+        enum TripKeys: String, CodingKey{
+            case completed
+            case destination
+            case start_date
+            case end_date
+        }
+        
 //        case waypoints
     }
     
     
     init(from decoder: Decoder) throws {
+        // Go into main container
+        var searchContainer = try decoder.container(keyedBy: TripsKeys.self)
         
-        let tripsContainer = try decoder.container(keyedBy: TripsKeys.self)
-//        let id = try tripsContainer.decode(String.self, forKey: .id)
-        let completed = try tripsContainer.decode(Bool.self, forKey: .completed)
-        let destination = try tripsContainer.decode(String.self, forKey: .destination)
-        let startDate = try tripsContainer.decode(String.self, forKey: .start_date)
-        let endDate = try tripsContainer.decode(String.self, forKey: .end_date)
-//        let waypoints = try tripsContainer.decode([Dictionary<String, Any>].self, forKey: .waypoints)
+        // Get the array of unkeyed listings container
+        var tripsContainer = try searchContainer.nestedUnkeyedContainer(forKey: .trips)
+        print(tripsContainer.count)
         
-        self.init(completed: completed, destination: destination, start_date: startDate, end_date: endDate)
+        // loop through every listing element
+        while !tripsContainer.isAtEnd {
+            
+            // access the current result container - {listing: value, pricing_quote: value}
+            let container = try tripsContainer.nestedContainer(keyedBy: TripsKeys.TripKeys.self)
+            
+            
+            // get specified values for the listing
+            let completed = try container.decode(Bool.self, forKey: .completed)
+            let destination = try container.decode(String.self, forKey: .destination)
+            
+            let startDate = try container.decode(String.self, forKey: .end_date)
+            let endDate = try container.decode(String.self, forKey: .start_date)
+            
+            // initialize a listing object
+            let trip = Trip(completed: completed, destination: destination, start_date: startDate, end_date: endDate)
+            
+            // add the listing object to the structs listings arrays
+            self.trips.append(trip)
+        }
     }
 }

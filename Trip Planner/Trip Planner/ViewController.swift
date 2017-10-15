@@ -13,23 +13,19 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let basicAuthHeaders = BasicAuth.generateBasicAuthHeader(username: "fernando@mail.com", password: "password")
+        let basicAuthHeaders = BasicAuth.generateBasicAuthHeader(username: "fernando2@mail.com", password: "password")
         
-        Networking.instance.fetch(route: Route.trips(tripId: 1), headers: ["Authorization": basicAuthHeaders]) { (data) in
+        Networking.instance.fetch(route: Route.trips, headers: ["Authorization": basicAuthHeaders]) { (data) in
             
-            let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//            let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//            if let trips = json {
+//                print(trips)
+//                print(type(of: trips))
+//            }
             
-            guard let trips = json as Array else {
-                return
-            }
-            
-            for item in trips {
-                print(item)
-            }
-            
-//            let trips = try? JSONDecoder().decode(Trip.self, from: data)
-//
-//            print(trips)
+            let trips = try? JSONDecoder().decode(Trip.self, from: data)
+            guard let trip_list = trips?.trips else {return}
+            print(trip_list)
             
         }
     }

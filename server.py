@@ -3,6 +3,7 @@ from flask_restful import Resource, Api
 from pymongo import MongoClient
 from utils.mongo_json_encoder import JSONEncoder
 import bcrypt
+from bson.json_util import dumps
 import json
 import pdb
 # import User
@@ -23,6 +24,7 @@ def auth_validation(email, user_password):
         return({"error": "email not found"}, 404, None)
     db_password = database_user.get('password')
     user_id = database_user["_id"]
+
     password = user_password.encode('utf-8')
     # pdb.set_trace()
     # Check if client password from login matches database password
@@ -151,8 +153,6 @@ class Trip(Resource):
         args = request.args
         trips_col = app.db.trips
 
-        print("user id: " + str(user_id))
-
         if 'destination' in args or 'start_date' in args:
             trip_destination = args.get('destination')
             trip_start_date = args.get('start_date')
@@ -164,11 +164,13 @@ class Trip(Resource):
 
             return (trip, 200, None)
 
-        trips = trips_col.find()
-        trips_arr = []
-        for trip in trips:
-            trips_arr.append(trip)
-        return (trips_arr, 200, None)
+        trips = trips_col.find({"user_id": user_id})
+        print("__________________tamos xoticos____________________")
+        trips = json.loads(dumps(trips))
+        # trips_arr = []
+        # for trip in trips:
+        #     trips_arr.append(trip)
+        return ({"trips": trips}, 200, None)
 
     @auth_function
     def post(self, user_id):
