@@ -3,6 +3,7 @@ from flask_restful import Resource, Api
 from pymongo import MongoClient
 from utils.mongo_json_encoder import JSONEncoder
 import bcrypt
+import json
 import pdb
 # import User
 
@@ -21,13 +22,13 @@ def auth_validation(email, user_password):
     if database_user is None:
         return({"error": "email not found"}, 404, None)
     db_password = database_user.get('password')
-
+    user_id = database_user["_id"]
     password = user_password.encode('utf-8')
     # pdb.set_trace()
     # Check if client password from login matches database password
     if bcrypt.hashpw(password, db_password) == db_password:
         # Let them in
-        return (database_user["_id"], 200, None)
+        return (user_id, 200, None)
     return (None, 400, None)
 
 
