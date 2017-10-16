@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		905EEA2B1F95408F005630EA /* TripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905EEA2A1F95408F005630EA /* TripCell.swift */; };
+		905EEA2D1F9540B1005630EA /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905EEA2C1F9540B1005630EA /* LoginVC.swift */; };
 		90E1E68D1F91C9EA0063AAA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E1E68C1F91C9EA0063AAA7 /* AppDelegate.swift */; };
-		90E1E68F1F91C9EA0063AAA7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E1E68E1F91C9EA0063AAA7 /* ViewController.swift */; };
+		90E1E68F1F91C9EA0063AAA7 /* TripsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E1E68E1F91C9EA0063AAA7 /* TripsController.swift */; };
 		90E1E6921F91C9EA0063AAA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90E1E6901F91C9EA0063AAA7 /* Main.storyboard */; };
 		90E1E6941F91C9EA0063AAA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90E1E6931F91C9EA0063AAA7 /* Assets.xcassets */; };
 		90E1E6971F91C9EA0063AAA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90E1E6951F91C9EA0063AAA7 /* LaunchScreen.storyboard */; };
@@ -38,9 +40,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		905EEA2A1F95408F005630EA /* TripCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCell.swift; sourceTree = "<group>"; };
+		905EEA2C1F9540B1005630EA /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		90E1E6891F91C9EA0063AAA7 /* Trip Planner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Trip Planner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		90E1E68C1F91C9EA0063AAA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		90E1E68E1F91C9EA0063AAA7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		90E1E68E1F91C9EA0063AAA7 /* TripsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsController.swift; sourceTree = "<group>"; };
 		90E1E6911F91C9EA0063AAA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		90E1E6931F91C9EA0063AAA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		90E1E6961F91C9EA0063AAA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -82,6 +86,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		905EEA291F954080005630EA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				905EEA2A1F95408F005630EA /* TripCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		905EEA2F1F9540C3005630EA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				90E1E68E1F91C9EA0063AAA7 /* TripsController.swift */,
+				905EEA2C1F9540B1005630EA /* LoginVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		90E1E6801F91C9EA0063AAA7 = {
 			isa = PBXGroup;
 			children = (
@@ -105,9 +126,10 @@
 		90E1E68B1F91C9EA0063AAA7 /* Trip Planner */ = {
 			isa = PBXGroup;
 			children = (
+				905EEA291F954080005630EA /* View */,
 				90F713E31F92D8EE00672498 /* Model */,
 				90E1E68C1F91C9EA0063AAA7 /* AppDelegate.swift */,
-				90E1E68E1F91C9EA0063AAA7 /* ViewController.swift */,
+				905EEA2F1F9540C3005630EA /* Controller */,
 				90E1E6901F91C9EA0063AAA7 /* Main.storyboard */,
 				90E1E6931F91C9EA0063AAA7 /* Assets.xcassets */,
 				90E1E6951F91C9EA0063AAA7 /* LaunchScreen.storyboard */,
@@ -281,10 +303,12 @@
 			files = (
 				90F713E71F92D91800672498 /* Trip.swift in Sources */,
 				90F713E01F92763100672498 /* Networking.swift in Sources */,
-				90E1E68F1F91C9EA0063AAA7 /* ViewController.swift in Sources */,
+				905EEA2D1F9540B1005630EA /* LoginVC.swift in Sources */,
+				90E1E68F1F91C9EA0063AAA7 /* TripsController.swift in Sources */,
 				90F713E21F92775700672498 /* BasicAuth.swift in Sources */,
 				90F713E51F92D90E00672498 /* User.swift in Sources */,
 				90E1E68D1F91C9EA0063AAA7 /* AppDelegate.swift in Sources */,
+				905EEA2B1F95408F005630EA /* TripCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
