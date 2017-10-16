@@ -10,9 +10,12 @@ import UIKit
 
 class LoginVC: UIViewController {
 
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+       
         // Do any additional setup after loading the view.
     }
 
@@ -20,16 +23,35 @@ class LoginVC: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func performLogin(_ sender: UIButton) {
+        print("hello")
+        let basicAuthHeaders = BasicAuth.generateBasicAuthHeader(username: "fernando2@mail.com", password: "password")
+        
+        Networking.instance.fetch(route: Route.user, method: "GET", headers: ["Authorization": basicAuthHeaders]) { (data) in
+            
+            let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+            guard let user = json else {
+                return
+            }
+            
+            print(user)
+            
+        }
     }
-    */
-
+    
+    
+    @IBAction func performSignup(_ sender: UIButton) {
+        Networking.instance.fetch(route: Route.user, method: "POST", headers: [:]) { (data) in
+            
+            let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+            guard let user = json else {
+                return
+            }
+            
+            print(user)
+            
+        }
+    }
+    
 }

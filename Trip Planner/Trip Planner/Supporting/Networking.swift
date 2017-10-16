@@ -51,13 +51,15 @@ class Networking {
     let baseUrlString = "http://127.0.0.1:5000/"
     let session = URLSession.shared
 
-    func fetch(route: Route, headers: [String: String], completion: @escaping (Data) -> Void) {
+    func fetch(route: Route, method: String, headers: [String: String], completion: @escaping (Data) -> Void) {
         let fullUrlString = baseUrlString.appending(route.path())
 
         let url = URL(string: fullUrlString)!
 
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = headers
+        request.httpMethod = method
+//        request.httpBody = body
 
         session.dataTask(with: request) { (data, response, error) in
             guard let data = data else {

@@ -82,26 +82,12 @@ class User(Resource):
             print("no se posteo na")
             return (None, 400, "Hola negro que pajo?")
 
-    def get(self):
-        user_email = request.args.get('email')
+    @auth_function
+    def get(self, user_id):
         user_collection = app.db.users
-        json_user = request.args
-        jsonPassword = json_user.get('password')
-        if user_email is None:
-            return("no parameter in url", 404, None)
-        user = user_collection.find_one({"email": user_email})
-        # pdb.set_trace()
-        if user is None:
-            print('no user exists')
-            return({'error': 'User with email ' + user_email + " does not exist"}, 404, None)
-        else:
-            encodedPassword = jsonPassword.encode('utf-8')
-            if bcrypt.hashpw(encodedPassword, user['password']) == user['password']:
-                user.pop('password')
-
-                return(user, 200, None)
-            else:
-                return('login failed', 404, None)
+        user = user_collection.find_one({"_id": user_id})
+        user.pop('password')
+        return(user, 200, None)
 
     @auth_function
     def put(self, user_id):
@@ -223,6 +209,9 @@ class Trip(Resource):
 
             if 'start_date' in json:
                 trip['start_date'] = json['start_date']
+
+            if 'completed' in json:
+                trip['completed'] = json['completed']
 
             trips_col.save(trip)
             return (trip, 200, None)

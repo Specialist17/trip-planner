@@ -103,6 +103,15 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		905EEA301F95410F005630EA /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
+				90F713E11F92775700672498 /* BasicAuth.swift */,
+				90F713DF1F92763100672498 /* Networking.swift */,
+			);
+			path = Supporting;
+			sourceTree = "<group>";
+		};
 		90E1E6801F91C9EA0063AAA7 = {
 			isa = PBXGroup;
 			children = (
@@ -126,16 +135,15 @@
 		90E1E68B1F91C9EA0063AAA7 /* Trip Planner */ = {
 			isa = PBXGroup;
 			children = (
+				905EEA2F1F9540C3005630EA /* Controller */,
 				905EEA291F954080005630EA /* View */,
 				90F713E31F92D8EE00672498 /* Model */,
-				90E1E68C1F91C9EA0063AAA7 /* AppDelegate.swift */,
-				905EEA2F1F9540C3005630EA /* Controller */,
+				905EEA301F95410F005630EA /* Supporting */,
 				90E1E6901F91C9EA0063AAA7 /* Main.storyboard */,
 				90E1E6931F91C9EA0063AAA7 /* Assets.xcassets */,
 				90E1E6951F91C9EA0063AAA7 /* LaunchScreen.storyboard */,
+				90E1E68C1F91C9EA0063AAA7 /* AppDelegate.swift */,
 				90E1E6981F91C9EA0063AAA7 /* Info.plist */,
-				90F713DF1F92763100672498 /* Networking.swift */,
-				90F713E11F92775700672498 /* BasicAuth.swift */,
 			);
 			path = "Trip Planner";
 			sourceTree = "<group>";

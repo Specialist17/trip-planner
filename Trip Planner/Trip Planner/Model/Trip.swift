@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Trip: Decodable {
+struct Trip: Codable {
     
 //    var id: String!
     var completed: Bool!
@@ -73,5 +73,11 @@ extension Trip {
             // add the listing object to the structs listings arrays
             self.trips.append(trip)
         }
+    }
+}
+
+extension Trip {
+    func encode(to encoder: Encoder) throws {
+        
     }
 }
