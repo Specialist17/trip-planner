@@ -24,15 +24,20 @@ class TripViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func changeCompletedStatus(_ sender: UISwitch) {
+        trip.completed = completedSwitch.isOn
+        
+        print(self.trip)
+        
+        Networking.instance.fetch(route: Route.trips, method: "PUT", headers: ["Authorization" : BASIC_AUTH_HEADERS, "Content-Type": "application/json"], data: self.trip) { (data) in
+            let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+            guard let trip = json else {
+                return
+            }
+            
+            print(trip)
+        }
     }
-    */
-
+    
+    
 }

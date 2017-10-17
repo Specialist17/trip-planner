@@ -12,7 +12,6 @@ enum Route {
     case user
     case trips
 
-
     // Path
     func path() -> String {
         switch self {

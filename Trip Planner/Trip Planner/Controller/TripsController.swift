@@ -18,10 +18,7 @@ class TripsController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        let basicAuthHeaders = BasicAuth.generateBasicAuthHeader(username: "fernando2@mail.com", password: "password")
-        
-        Networking.instance.fetch(route: Route.trips, method: "GET", headers: ["Authorization": basicAuthHeaders], data: nil) { (data) in
+        Networking.instance.fetch(route: Route.trips, method: "GET", headers: ["Authorization": BASIC_AUTH_HEADERS], data: nil) { (data) in
             
             let trips = try? JSONDecoder().decode([Trip].self, from: data)
             guard let trip_list = trips else {return}

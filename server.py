@@ -179,9 +179,10 @@ class Trip(Resource):
         json = request.json
         trips_col = app.db.trips
 
-        trip_destination = args.get('destination') if args.get('destination') else None
+        trip_destination = json.get('destination') if json.get('destination') else None
         trip_start_date = args.get('start_date') if args.get('start_date') else None
-
+        print(json)
+        print(args)
         trip = trips_col.find_one({
             'destination': trip_destination
         })

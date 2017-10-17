@@ -10,6 +10,7 @@
 		902D3B911F958B69002CAD0D /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902D3B901F958B69002CAD0D /* TripViewController.swift */; };
 		905EEA2B1F95408F005630EA /* TripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905EEA2A1F95408F005630EA /* TripCell.swift */; };
 		905EEA2D1F9540B1005630EA /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905EEA2C1F9540B1005630EA /* LoginVC.swift */; };
+		907F110A1F95943B00E79652 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907F11091F95943B00E79652 /* Constants.swift */; };
 		90E1E68D1F91C9EA0063AAA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E1E68C1F91C9EA0063AAA7 /* AppDelegate.swift */; };
 		90E1E68F1F91C9EA0063AAA7 /* TripsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E1E68E1F91C9EA0063AAA7 /* TripsController.swift */; };
 		90E1E6921F91C9EA0063AAA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90E1E6901F91C9EA0063AAA7 /* Main.storyboard */; };
@@ -44,6 +45,7 @@
 		902D3B901F958B69002CAD0D /* TripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
 		905EEA2A1F95408F005630EA /* TripCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCell.swift; sourceTree = "<group>"; };
 		905EEA2C1F9540B1005630EA /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		907F11091F95943B00E79652 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		90E1E6891F91C9EA0063AAA7 /* Trip Planner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Trip Planner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		90E1E68C1F91C9EA0063AAA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		90E1E68E1F91C9EA0063AAA7 /* TripsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsController.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				90E1E6951F91C9EA0063AAA7 /* LaunchScreen.storyboard */,
 				90E1E68C1F91C9EA0063AAA7 /* AppDelegate.swift */,
 				90E1E6981F91C9EA0063AAA7 /* Info.plist */,
+				907F11091F95943B00E79652 /* Constants.swift */,
 			);
 			path = "Trip Planner";
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				905EEA2D1F9540B1005630EA /* LoginVC.swift in Sources */,
 				902D3B911F958B69002CAD0D /* TripViewController.swift in Sources */,
 				90E1E68F1F91C9EA0063AAA7 /* TripsController.swift in Sources */,
+				907F110A1F95943B00E79652 /* Constants.swift in Sources */,
 				90F713E21F92775700672498 /* BasicAuth.swift in Sources */,
 				90F713E51F92D90E00672498 /* User.swift in Sources */,
 				90E1E68D1F91C9EA0063AAA7 /* AppDelegate.swift in Sources */,

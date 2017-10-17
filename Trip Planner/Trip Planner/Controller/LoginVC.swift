@@ -26,9 +26,7 @@ class LoginVC: UIViewController {
 
     @IBAction func performLogin(_ sender: UIButton) {
         print("hello")
-        let basicAuthHeaders = BasicAuth.generateBasicAuthHeader(username: "fernando2@mail.com", password: "password")
-        
-        Networking.instance.fetch(route: Route.user, method: "GET", headers: ["Authorization": basicAuthHeaders], data: nil) { (data) in
+        Networking.instance.fetch(route: Route.user, method: "GET", headers: ["Authorization": BASIC_AUTH_HEADERS], data: nil) { (data) in
             
             let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
             guard let user = json else {
