@@ -21,10 +21,10 @@ class TripsController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         let basicAuthHeaders = BasicAuth.generateBasicAuthHeader(username: "fernando2@mail.com", password: "password")
         
-        Networking.instance.fetch(route: Route.trips, method: "GET", headers: ["Authorization": basicAuthHeaders]) { (data) in
+        Networking.instance.fetch(route: Route.trips, method: "GET", headers: ["Authorization": basicAuthHeaders], data: nil) { (data) in
             
-            let trips = try? JSONDecoder().decode(Trip.self, from: data)
-            guard let trip_list = trips?.trips else {return}
+            let trips = try? JSONDecoder().decode([Trip].self, from: data)
+            guard let trip_list = trips else {return}
             DispatchQueue.main.async {
                 self.trips = trip_list
             }
@@ -56,12 +56,21 @@ extension TripsController: UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let trip = trips[indexPath.row]
-//
-//        performSegue(withIdentifier: "ViewComments", sender: trip)
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let trip = trips[indexPath.row]
+        
+        performSegue(withIdentifier: "ViewTrip", sender: trip)
+    }
 }
 
-
+extension TripsController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ViewTrip" {
+            if let destinationVC = segue.destination as? TripInfoController{
+                if let trip = sender as? Trip {
+                    destinationVC.trip = trip
+                }
+            }
+        }
+    }
+}

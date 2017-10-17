@@ -156,7 +156,7 @@ class Trip(Resource):
         # trips_arr = []
         # for trip in trips:
         #     trips_arr.append(trip)
-        return ({"trips": trips}, 200, None)
+        return (trips, 200, None)
 
     @auth_function
     def post(self, user_id):

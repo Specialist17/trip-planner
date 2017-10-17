@@ -34,10 +34,13 @@ enum Route {
     }
     
     // Body
-    func body() -> Data? {
+    func body(data: Encodable?) -> Data? {
         switch self {
-        case .user:
-            return Data()
+        case .trips:
+            let encoder = JSONEncoder()
+            guard let model = data as? Trip else {return nil}
+            let result = try? encoder.encode(model)
+            return result
         default:
             return nil
         }
@@ -51,7 +54,7 @@ class Networking {
     let baseUrlString = "http://127.0.0.1:5000/"
     let session = URLSession.shared
 
-    func fetch(route: Route, method: String, headers: [String: String], completion: @escaping (Data) -> Void) {
+    func fetch(route: Route, method: String, headers: [String: String], data: Encodable?, completion: @escaping (Data) -> Void) {
         let fullUrlString = baseUrlString.appending(route.path())
 
         let url = URL(string: fullUrlString)!
@@ -59,7 +62,7 @@ class Networking {
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = headers
         request.httpMethod = method
-//        request.httpBody = body
+        request.httpBody = route.body(data: data)
 
         session.dataTask(with: request) { (data, response, error) in
             guard let data = data else {

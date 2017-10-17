@@ -28,7 +28,7 @@ class LoginVC: UIViewController {
         print("hello")
         let basicAuthHeaders = BasicAuth.generateBasicAuthHeader(username: "fernando2@mail.com", password: "password")
         
-        Networking.instance.fetch(route: Route.user, method: "GET", headers: ["Authorization": basicAuthHeaders]) { (data) in
+        Networking.instance.fetch(route: Route.user, method: "GET", headers: ["Authorization": basicAuthHeaders], data: nil) { (data) in
             
             let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
             guard let user = json else {
@@ -42,7 +42,7 @@ class LoginVC: UIViewController {
     
     
     @IBAction func performSignup(_ sender: UIButton) {
-        Networking.instance.fetch(route: Route.user, method: "POST", headers: [:]) { (data) in
+        Networking.instance.fetch(route: Route.user, method: "POST", headers: [:], data: nil) { (data) in
             
             let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
             guard let user = json else {
