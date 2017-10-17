@@ -58,6 +58,7 @@ extension TripsController: UITableViewDelegate, UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let trip = trips[indexPath.row]
+        print("Bregó la cosa")
         
         performSegue(withIdentifier: "ViewTrip", sender: trip)
     }
@@ -66,7 +67,7 @@ extension TripsController: UITableViewDelegate, UITableViewDataSource{
 extension TripsController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ViewTrip" {
-            if let destinationVC = segue.destination as? TripInfoController{
+            if let destinationVC = segue.destination as? TripViewController{
                 if let trip = sender as? Trip {
                     destinationVC.trip = trip
                 }

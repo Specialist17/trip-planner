@@ -152,10 +152,10 @@
             </objects>
             <point key="canvasLocation" x="870" y="133"/>
         </scene>
-        <!--Trip Info Controller-->
+        <!--Trip View Controller-->
         <scene sceneID="vb7-Tr-Tyj">
             <objects>
-                <viewController id="TiA-X3-bT2" customClass="TripInfoController" customModule="Trip_Planner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="TiA-X3-bT2" customClass="TripViewController" customModule="Trip_Planner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9Cb-c3-JGA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -185,6 +185,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="x2x-pt-Xo1"/>
                     </view>
+                    <connections>
+                        <outlet property="completedSwitch" destination="z2X-0s-z9W" id="4nb-wz-0yM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D9W-2X-yLF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
