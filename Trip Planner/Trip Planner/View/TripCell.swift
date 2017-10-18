@@ -11,7 +11,7 @@ import UIKit
 class TripCell: UITableViewCell {
 
     @IBOutlet weak var tripDestinationLabel: UILabel!
-    @IBOutlet weak var completedButton: UIButton!
+    @IBOutlet weak var completedImage: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,6 +26,12 @@ class TripCell: UITableViewCell {
     
     func configureCell(trip: Trip) {
         tripDestinationLabel.text = trip.destination
+        
+        if trip.completed{
+            self.completedImage.image = UIImage(named: "checked.png")
+        } else {
+            self.completedImage.image = UIImage(named: "unchecked.png")
+        }
     }
 
 }

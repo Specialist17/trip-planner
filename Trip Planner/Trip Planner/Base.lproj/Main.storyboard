@@ -121,9 +121,21 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unchecked" translatesAutoresizingMaskIntoConstraints="NO" id="y9W-fK-yll">
+                                                    <rect key="frame" x="330" y="0.0" width="45" height="43.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="45" id="EJF-if-bss"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="y9W-fK-yll" firstAttribute="top" secondItem="KBK-A6-hAW" secondAttribute="top" id="8wE-tc-8Nv"/>
+                                                <constraint firstAttribute="trailing" secondItem="y9W-fK-yll" secondAttribute="trailing" id="C8t-3g-bV1"/>
+                                                <constraint firstAttribute="bottom" secondItem="y9W-fK-yll" secondAttribute="bottom" id="Qsq-5q-5ay"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="completedImage" destination="y9W-fK-yll" id="28s-PD-ZDH"/>
                                             <outlet property="tripDestinationLabel" destination="783-Bb-18T" id="TUf-8J-3SJ"/>
                                         </connections>
                                     </tableViewCell>
@@ -143,7 +155,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="HKn-o1-R9A"/>
+                    <navigationItem key="navigationItem" id="HKn-o1-R9A">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="pCQ-Uw-U2U">
+                            <connections>
+                                <segue destination="Nq3-aD-GfQ" kind="show" id="OVI-l5-02S"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="Bty-4x-GLw" id="aQY-NN-G0t"/>
                         <segue destination="TiA-X3-bT2" kind="show" identifier="ViewTrip" id="QZr-dI-f8J"/>
@@ -151,7 +169,69 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="870" y="133"/>
+            <point key="canvasLocation" x="869.60000000000002" y="132.68365817091455"/>
+        </scene>
+        <!--Create Trip-->
+        <scene sceneID="GHK-P8-6st">
+            <objects>
+                <viewController id="Nq3-aD-GfQ" customClass="CreateTripVC" customModule="Trip_Planner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fBy-5J-JkI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="Hau-BU-gZK">
+                                <rect key="frame" x="10" y="74" width="355" height="583"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Destination" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T40-pU-iAm">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="116"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Start Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MgB-Mr-fg7">
+                                        <rect key="frame" x="0.0" y="156" width="355" height="115.5"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="End Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="okf-HN-wTX">
+                                        <rect key="frame" x="0.0" y="311.5" width="355" height="116"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vgD-Rl-pX7">
+                                        <rect key="frame" x="0.0" y="467.5" width="355" height="115.5"/>
+                                        <color key="backgroundColor" red="0.23403564099999999" green="0.66872245070000003" blue="0.85473078489999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Save Trip">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveTripPressed:" destination="Nq3-aD-GfQ" eventType="touchUpInside" id="DAc-qZ-uve"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kdX-98-Bvh" firstAttribute="trailing" secondItem="Hau-BU-gZK" secondAttribute="trailing" constant="10" id="9Hj-Is-m9q"/>
+                            <constraint firstItem="kdX-98-Bvh" firstAttribute="bottom" secondItem="Hau-BU-gZK" secondAttribute="bottom" constant="10" id="Mcs-QU-dat"/>
+                            <constraint firstItem="Hau-BU-gZK" firstAttribute="leading" secondItem="kdX-98-Bvh" secondAttribute="leading" constant="10" id="RqP-nh-4tN"/>
+                            <constraint firstItem="Hau-BU-gZK" firstAttribute="top" secondItem="kdX-98-Bvh" secondAttribute="top" constant="10" id="dSq-UA-PJ4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="kdX-98-Bvh"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Create Trip" id="Qs4-hs-uSo"/>
+                    <connections>
+                        <outlet property="destinationTextField" destination="T40-pU-iAm" id="ZH6-Li-1Vz"/>
+                        <outlet property="endDateTextField" destination="okf-HN-wTX" id="ulB-TE-3fU"/>
+                        <outlet property="startDateTextField" destination="MgB-Mr-fg7" id="uOP-ef-hqK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CzF-Jn-cwh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1713" y="-181"/>
         </scene>
         <!--Trip View Controller-->
         <scene sceneID="vb7-Tr-Tyj">
@@ -195,7 +275,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D9W-2X-yLF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1639" y="132"/>
+            <point key="canvasLocation" x="1713" y="520"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="H2d-fh-0SE">
@@ -216,4 +296,7 @@
             <point key="canvasLocation" x="83.200000000000003" y="132.23388305847078"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="unchecked" width="100" height="100"/>
+    </resources>
 </document>

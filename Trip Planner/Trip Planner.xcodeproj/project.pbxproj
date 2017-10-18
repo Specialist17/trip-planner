@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		902D3B911F958B69002CAD0D /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902D3B901F958B69002CAD0D /* TripViewController.swift */; };
+		903A6D381F96F9CE007C3965 /* CreateTripVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903A6D371F96F9CE007C3965 /* CreateTripVC.swift */; };
 		905EEA2B1F95408F005630EA /* TripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905EEA2A1F95408F005630EA /* TripCell.swift */; };
 		905EEA2D1F9540B1005630EA /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905EEA2C1F9540B1005630EA /* LoginVC.swift */; };
 		907F110A1F95943B00E79652 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907F11091F95943B00E79652 /* Constants.swift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		902D3B901F958B69002CAD0D /* TripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
+		903A6D371F96F9CE007C3965 /* CreateTripVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTripVC.swift; sourceTree = "<group>"; };
 		905EEA2A1F95408F005630EA /* TripCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCell.swift; sourceTree = "<group>"; };
 		905EEA2C1F9540B1005630EA /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		907F11091F95943B00E79652 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				90E1E68E1F91C9EA0063AAA7 /* TripsController.swift */,
 				905EEA2C1F9540B1005630EA /* LoginVC.swift */,
 				902D3B901F958B69002CAD0D /* TripViewController.swift */,
+				903A6D371F96F9CE007C3965 /* CreateTripVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				902D3B911F958B69002CAD0D /* TripViewController.swift in Sources */,
 				90E1E68F1F91C9EA0063AAA7 /* TripsController.swift in Sources */,
 				907F110A1F95943B00E79652 /* Constants.swift in Sources */,
+				903A6D381F96F9CE007C3965 /* CreateTripVC.swift in Sources */,
 				90F713E21F92775700672498 /* BasicAuth.swift in Sources */,
 				90F713E51F92D90E00672498 /* User.swift in Sources */,
 				90E1E68D1F91C9EA0063AAA7 /* AppDelegate.swift in Sources */,

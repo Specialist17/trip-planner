@@ -18,7 +18,14 @@ class TripsController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        Networking.instance.fetch(route: Route.trips, method: "GET", headers: ["Authorization": BASIC_AUTH_HEADERS], data: nil) { (data) in
+        let defaults = UserDefaults.standard
+        guard let email = defaults.string(forKey: "Email"),
+            let password = defaults.string(forKey: "Password")
+            else {return}
+        
+        let basicHeader = BasicAuth.generateBasicAuthHeader(username: email, password: password)
+        
+        Networking.instance.fetch(route: Route.trips, method: "GET", headers: ["Authorization": basicHeader], data: nil) { (data) in
             
             let trips = try? JSONDecoder().decode([Trip].self, from: data)
             guard let trip_list = trips else {return}

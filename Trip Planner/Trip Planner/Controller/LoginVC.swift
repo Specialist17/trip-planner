@@ -12,9 +12,14 @@ class LoginVC: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
+    let defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(defaults.string(forKey: "Email"))
+        if let _ = defaults.string(forKey: "Email"){
+            print("hello")
+            self.performSegue(withIdentifier: "HomeSegue", sender: self)
+        }
        
         // Do any additional setup after loading the view.
     }
@@ -25,8 +30,17 @@ class LoginVC: UIViewController {
     }
 
     @IBAction func performLogin(_ sender: UIButton) {
-        print("hello")
-        Networking.instance.fetch(route: Route.user, method: "GET", headers: ["Authorization": BASIC_AUTH_HEADERS], data: nil) { (data) in
+        
+        guard let username = self.emailTextField.text,
+         let password = self.passwordTextField.text else {
+            return
+        }
+        
+        defaults.set(username, forKey: "Email")
+        defaults.set(password, forKey: "Password")
+        
+        let basicHeader = BasicAuth.generateBasicAuthHeader(username: username, password: password)
+        Networking.instance.fetch(route: Route.user, method: "GET", headers: ["Authorization": basicHeader], data: nil) { (data) in
             
             let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
             guard let user = json else {
@@ -34,22 +48,28 @@ class LoginVC: UIViewController {
             }
             
             print(user)
-            
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "HomeSegue", sender: sender)
+            }
         }
     }
     
     
     @IBAction func performSignup(_ sender: UIButton) {
         
-        let user = User(username: "Fabio", email: self.emailTextField.text, password: self.passwordTextField.text)
+        guard let email = self.emailTextField.text,
+            let password = self.passwordTextField.text else {
+                return
+        }
+        
+        let defaults = UserDefaults.standard
+        defaults.set(email, forKey: "Email")
+        defaults.set(password, forKey: "Password")
+        
+        let user = User(username: "El usuario", email: email, password: password)
         
         Networking.instance.fetch(route: Route.user, method: "POST", headers: ["Content-Type": "application/json"], data: user) { (data) in
-            let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-            guard let trip = json else {
-                return
-            }
             
-            print(trip)
             
             DispatchQueue.main.async {
                 self.performSegue(withIdentifier: "HomeSegue", sender: sender)
