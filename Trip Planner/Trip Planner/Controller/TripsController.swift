@@ -11,6 +11,7 @@ import UIKit
 class TripsController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    var refresher: UIRefreshControl!
     var trips = [Trip]() {
         didSet{
             tableView.reloadData()
@@ -18,6 +19,16 @@ class TripsController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        refresher = UIRefreshControl()
+        tableView.addSubview(refresher)
+        refresher.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refresher.tintColor = UIColor(red: 1.00, green: 130/255, blue: 45/255, alpha: 0.8)
+        refresher.addTarget(self, action: #selector(getTrips), for: .valueChanged)
+        getTrips()
+    }
+    
+    @objc func getTrips() {
         let defaults = UserDefaults.standard
         guard let email = defaults.string(forKey: "Email"),
             let password = defaults.string(forKey: "Password")
@@ -31,11 +42,12 @@ class TripsController: UIViewController {
             guard let trip_list = trips else {return}
             DispatchQueue.main.async {
                 self.trips = trip_list
+                self.refresher.endRefreshing()
             }
             
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
