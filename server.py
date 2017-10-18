@@ -219,21 +219,6 @@ class Trip(Resource):
 
         return ({'error': 'no trip with that destination found'}, 404, None)
 
-    # @auth_function
-    # def patch(self):
-    #     destination = request.args.get('destination')
-    #     waypoints = request.json.get('waypoints')
-    #
-    #     trips_col = app.db.trips
-    #
-    #     updated_trip = trips_col.find_one_and_update(
-    #         {'destination': destination},
-    #         {'$destination': destination,
-    #          '$waypoints': waypoints},
-    #         return_document=ReturnDocument.AFTER)
-    #
-    #     return(updated_trip, 200, None)
-
     @auth_function
     def delete(self, id):
         args = request.args

@@ -103,39 +103,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bty-4x-GLw">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bty-4x-GLw">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripCell" id="kal-pL-ZJw" customClass="TripCell" customModule="Trip_Planner" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kal-pL-ZJw" id="KBK-A6-hAW">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Trip Destination" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="783-Bb-18T">
-                                                    <rect key="frame" x="8" y="11" width="120" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unchecked" translatesAutoresizingMaskIntoConstraints="NO" id="y9W-fK-yll">
-                                                    <rect key="frame" x="330" y="0.0" width="45" height="43.5"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PDQ-1p-Vc7">
+                                                    <rect key="frame" x="2" y="2" width="371" height="56"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip Destination" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="783-Bb-18T">
+                                                            <rect key="frame" x="0.0" y="0.0" width="120" height="56"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="45" id="EJF-if-bss"/>
+                                                        <constraint firstItem="783-Bb-18T" firstAttribute="top" secondItem="PDQ-1p-Vc7" secondAttribute="top" id="CJD-9h-eao"/>
+                                                        <constraint firstItem="783-Bb-18T" firstAttribute="leading" secondItem="PDQ-1p-Vc7" secondAttribute="leading" id="SvY-dt-XCv"/>
+                                                        <constraint firstAttribute="bottom" secondItem="783-Bb-18T" secondAttribute="bottom" id="euY-nW-fKB"/>
                                                     </constraints>
-                                                </imageView>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="materialDesign" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="y9W-fK-yll" firstAttribute="top" secondItem="KBK-A6-hAW" secondAttribute="top" id="8wE-tc-8Nv"/>
-                                                <constraint firstAttribute="trailing" secondItem="y9W-fK-yll" secondAttribute="trailing" id="C8t-3g-bV1"/>
-                                                <constraint firstAttribute="bottom" secondItem="y9W-fK-yll" secondAttribute="bottom" id="Qsq-5q-5ay"/>
+                                                <constraint firstItem="PDQ-1p-Vc7" firstAttribute="top" secondItem="KBK-A6-hAW" secondAttribute="top" constant="2" id="OIm-Js-7c3"/>
+                                                <constraint firstAttribute="bottom" secondItem="PDQ-1p-Vc7" secondAttribute="bottom" constant="2" id="da3-KC-cyK"/>
+                                                <constraint firstItem="PDQ-1p-Vc7" firstAttribute="leading" secondItem="KBK-A6-hAW" secondAttribute="leading" constant="2" id="iBl-Ee-hbF"/>
+                                                <constraint firstAttribute="trailing" secondItem="PDQ-1p-Vc7" secondAttribute="trailing" constant="2" id="ng1-9R-2bn"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="completedImage" destination="y9W-fK-yll" id="28s-PD-ZDH"/>
                                             <outlet property="tripDestinationLabel" destination="783-Bb-18T" id="TUf-8J-3SJ"/>
                                         </connections>
                                     </tableViewCell>
@@ -296,7 +303,4 @@
             <point key="canvasLocation" x="83.200000000000003" y="132.23388305847078"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="unchecked" width="100" height="100"/>
-    </resources>
 </document>

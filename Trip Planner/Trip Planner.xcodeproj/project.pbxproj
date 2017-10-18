@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		902D3B911F958B69002CAD0D /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902D3B901F958B69002CAD0D /* TripViewController.swift */; };
 		903A6D381F96F9CE007C3965 /* CreateTripVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903A6D371F96F9CE007C3965 /* CreateTripVC.swift */; };
+		903A6D3B1F980848007C3965 /* UIButton+IndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903A6D3A1F980848007C3965 /* UIButton+IndexPath.swift */; };
+		903A6D3D1F980F8D007C3965 /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903A6D3C1F980F8D007C3965 /* MaterialView.swift */; };
 		905EEA2B1F95408F005630EA /* TripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905EEA2A1F95408F005630EA /* TripCell.swift */; };
 		905EEA2D1F9540B1005630EA /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905EEA2C1F9540B1005630EA /* LoginVC.swift */; };
 		907F110A1F95943B00E79652 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907F11091F95943B00E79652 /* Constants.swift */; };
@@ -45,6 +47,8 @@
 /* Begin PBXFileReference section */
 		902D3B901F958B69002CAD0D /* TripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
 		903A6D371F96F9CE007C3965 /* CreateTripVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTripVC.swift; sourceTree = "<group>"; };
+		903A6D3A1F980848007C3965 /* UIButton+IndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+IndexPath.swift"; sourceTree = "<group>"; };
+		903A6D3C1F980F8D007C3965 /* MaterialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialView.swift; sourceTree = "<group>"; };
 		905EEA2A1F95408F005630EA /* TripCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCell.swift; sourceTree = "<group>"; };
 		905EEA2C1F9540B1005630EA /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		907F11091F95943B00E79652 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -92,10 +96,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		903A6D391F980821007C3965 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				903A6D3A1F980848007C3965 /* UIButton+IndexPath.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		905EEA291F954080005630EA /* View */ = {
 			isa = PBXGroup;
 			children = (
 				905EEA2A1F95408F005630EA /* TripCell.swift */,
+				903A6D3C1F980F8D007C3965 /* MaterialView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -143,6 +156,7 @@
 		90E1E68B1F91C9EA0063AAA7 /* Trip Planner */ = {
 			isa = PBXGroup;
 			children = (
+				903A6D391F980821007C3965 /* Extensions */,
 				905EEA2F1F9540C3005630EA /* Controller */,
 				905EEA291F954080005630EA /* View */,
 				90F713E31F92D8EE00672498 /* Model */,
@@ -321,12 +335,14 @@
 				90F713E71F92D91800672498 /* Trip.swift in Sources */,
 				90F713E01F92763100672498 /* Networking.swift in Sources */,
 				905EEA2D1F9540B1005630EA /* LoginVC.swift in Sources */,
+				903A6D3D1F980F8D007C3965 /* MaterialView.swift in Sources */,
 				902D3B911F958B69002CAD0D /* TripViewController.swift in Sources */,
 				90E1E68F1F91C9EA0063AAA7 /* TripsController.swift in Sources */,
 				907F110A1F95943B00E79652 /* Constants.swift in Sources */,
 				903A6D381F96F9CE007C3965 /* CreateTripVC.swift in Sources */,
 				90F713E21F92775700672498 /* BasicAuth.swift in Sources */,
 				90F713E51F92D90E00672498 /* User.swift in Sources */,
+				903A6D3B1F980848007C3965 /* UIButton+IndexPath.swift in Sources */,
 				90E1E68D1F91C9EA0063AAA7 /* AppDelegate.swift in Sources */,
 				905EEA2B1F95408F005630EA /* TripCell.swift in Sources */,
 			);
