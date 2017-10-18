@@ -40,16 +40,23 @@ class LoginVC: UIViewController {
     
     
     @IBAction func performSignup(_ sender: UIButton) {
-        Networking.instance.fetch(route: Route.user, method: "POST", headers: [:], data: nil) { (data) in
-            
+        
+        let user = User(username: "Fabio", email: self.emailTextField.text, password: self.passwordTextField.text)
+        
+        Networking.instance.fetch(route: Route.user, method: "POST", headers: ["Content-Type": "application/json"], data: user) { (data) in
             let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-            guard let user = json else {
+            guard let trip = json else {
                 return
             }
             
-            print(user)
+            print(trip)
             
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "HomeSegue", sender: sender)
+            }
         }
+        
+        
     }
     
 }

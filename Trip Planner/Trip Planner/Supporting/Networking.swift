@@ -35,13 +35,16 @@ enum Route {
     // Body
     func body(data: Encodable?) -> Data? {
         switch self {
+        case .user:
+            let encoder = JSONEncoder()
+            guard let model = data as? User else {return nil}
+            let result = try? encoder.encode(model)
+            return result
         case .trips:
             let encoder = JSONEncoder()
             guard let model = data as? Trip else {return nil}
             let result = try? encoder.encode(model)
             return result
-        default:
-            return nil
         }
     }
 }
