@@ -10,6 +10,8 @@ import pdb
 
 
 app = Flask(__name__)
+# app.config.from_pyfile('config.cfg')
+# mongo = MongoClient("mongodb://Specialist17:eQYn6B8Ve7gpsPQv33@ds127105.mlab.com:27105/trip_panner")
 mongo = MongoClient('localhost', 27017)
 app.db = mongo.trip_planner_development
 app.bcrypt_rounds = 12
@@ -39,7 +41,6 @@ def auth_function(func):
         auth = request.authorization
         print(auth)
         validation = auth_validation(auth.username, auth.password)
-        # print(validation)
         if validation[1] is 400:
             return (
                     'Could not verify your access level for that URL.\n'
@@ -150,12 +151,10 @@ class Trip(Resource):
 
             return (trip, 200, None)
 
+        print(user_id)
         trips = trips_col.find({"user_id": user_id})
-        print("__________________tamos xoticos____________________")
         trips = json.loads(dumps(trips))
-        # trips_arr = []
-        # for trip in trips:
-        #     trips_arr.append(trip)
+        print(trips)
         return (trips, 200, None)
 
     @auth_function

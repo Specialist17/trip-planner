@@ -1,3 +1,4 @@
 development/
 *.pyc
 *.env
+*.cfg

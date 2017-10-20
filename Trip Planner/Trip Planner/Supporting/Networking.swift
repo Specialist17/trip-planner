@@ -34,14 +34,13 @@ enum Route {
     
     // Body
     func body(data: Encodable?) -> Data? {
+        let encoder = JSONEncoder()
         switch self {
         case .user:
-            let encoder = JSONEncoder()
             guard let model = data as? User else {return nil}
             let result = try? encoder.encode(model)
             return result
         case .trips:
-            let encoder = JSONEncoder()
             guard let model = data as? Trip else {return nil}
             let result = try? encoder.encode(model)
             return result
@@ -53,7 +52,7 @@ enum Route {
 class Networking {
     static let instance = Networking()
 
-    let baseUrlString = "http://127.0.0.1:5000/"
+    let baseUrlString = "https://calm-hamlet-30270.herokuapp.com/"
     let session = URLSession.shared
 
     func fetch(route: Route, method: String, headers: [String: String], data: Encodable?, completion: @escaping (Data) -> Void) {

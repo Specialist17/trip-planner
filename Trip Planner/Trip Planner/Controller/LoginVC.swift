@@ -15,7 +15,7 @@ class LoginVC: UIViewController {
     let defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(defaults.string(forKey: "Email"))
+        print(defaults.string(forKey: "Email") ?? "no hay na")
         if let _ = defaults.string(forKey: "Email"){
             print("hello")
             self.performSegue(withIdentifier: "HomeSegue", sender: self)
