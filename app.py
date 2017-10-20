@@ -12,8 +12,6 @@ import pdb
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
 mongo = MongoClient(app.config['MONGODB_URI'])
-# mongo = MongoClient("mongodb://Specialist17:eQYn6B8Ve7gpsPQv33@ds127105.mlab.com:27105/trip_panner")
-# mongo = MongoClient('localhost', 27017)
 app.db = mongo.trip_panner
 app.bcrypt_rounds = 12
 api = Api(app)
