@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Trip Planner/Supporting/Networking.swift"
-            timestampString = "530135153.729588"
+            timestampString = "530232093.06604"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "29"
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Trip Planner/Supporting/Networking.swift"
-            timestampString = "530135153.730019"
+            timestampString = "530232093.069288"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "fetch(route:method:headers:data:completion:)"
             landmarkType = "7">
          </BreakpointContent>
