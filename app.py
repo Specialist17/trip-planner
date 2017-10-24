@@ -11,8 +11,9 @@ import pdb
 
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
-mongo = MongoClient(app.config['MONGODB_URI'])
-app.db = mongo.trip_panner
+mongo = MongoClient('localhost', 27017)
+# mongo = MongoClient(app.config['MONGODB_URI'])
+app.db = mongo.trip_planner_development
 app.bcrypt_rounds = 12
 api = Api(app)
 
@@ -27,7 +28,7 @@ def auth_validation(email, user_password):
     user_id = database_user["_id"]
 
     password = user_password.encode('utf-8')
-    # pdb.set_trace()
+    pdb.set_trace()
     # Check if client password from login matches database password
     if bcrypt.hashpw(password, db_password) == db_password:
         # Let them in
@@ -40,7 +41,7 @@ def auth_function(func):
         auth = request.authorization
         print(auth)
         validation = auth_validation(auth.username, auth.password)
-        if validation[1] is 400:
+        if validation[1] is 400 or validation[1] is 404:
             return (
                     'Could not verify your access level for that URL.\n'
                     'You have to login with proper credentials', 401,
