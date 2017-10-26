@@ -15,13 +15,12 @@ class LoginVC: UIViewController {
     let defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(defaults.string(forKey: "Email") ?? "no hay na")
-        if let _ = defaults.string(forKey: "Email"){
-            print("hello")
-            self.performSegue(withIdentifier: "HomeSegue", sender: self)
-        }
-       
         // Do any additional setup after loading the view.
+        let loggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
+        if loggedIn {
+            self.performSegue(withIdentifier: "HomeSegue", sender: nil)
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,18 +35,11 @@ class LoginVC: UIViewController {
             return
         }
         
-        defaults.set(username, forKey: "Email")
-        defaults.set(password, forKey: "Password")
-        
         let basicHeader = BasicAuth.generateBasicAuthHeader(username: username, password: password)
+        defaults.set(basicHeader, forKey: "basicAuth")
+        defaults.set(true, forKey: "isLoggedIn")
         Networking.instance.fetch(route: Route.user, method: "GET", headers: ["Authorization": basicHeader], data: nil) { (data) in
-            
-            let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-            guard let user = json else {
-                return
-            }
-            
-            print(user)
+            print("hola")
             DispatchQueue.main.async {
                 self.performSegue(withIdentifier: "HomeSegue", sender: sender)
             }
@@ -63,10 +55,11 @@ class LoginVC: UIViewController {
         }
         
         let defaults = UserDefaults.standard
-        defaults.set(email, forKey: "Email")
-        defaults.set(password, forKey: "Password")
         
+        let basicHeader = BasicAuth.generateBasicAuthHeader(username: email, password: password)
         let user = User(username: "El usuario", email: email, password: password)
+        defaults.set(basicHeader, forKey: "basicAuth")
+        defaults.set(true, forKey: "isLoggedIn")
         
         Networking.instance.fetch(route: Route.user, method: "POST", headers: ["Content-Type": "application/json"], data: user) { (data) in
             

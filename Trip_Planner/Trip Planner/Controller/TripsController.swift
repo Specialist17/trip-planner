@@ -34,9 +34,9 @@ class TripsController: UIViewController {
             let password = defaults.string(forKey: "Password")
             else {return}
         
-        let basicHeader = BasicAuth.generateBasicAuthHeader(username: email, password: password)
+        let basicHeader = defaults.string(forKey: "basicAuth")
         
-        Networking.instance.fetch(route: Route.trips, method: "GET", headers: ["Authorization": basicHeader], data: nil) { (data) in
+        Networking.instance.fetch(route: Route.trips, method: "GET", headers: ["Authorization": basicHeader!], data: nil) { (data) in
             
             let trips = try? JSONDecoder().decode([Trip].self, from: data)
             guard let trip_list = trips else {return}
