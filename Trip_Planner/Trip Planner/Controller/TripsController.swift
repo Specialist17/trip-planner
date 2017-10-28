@@ -30,13 +30,13 @@ class TripsController: UIViewController {
     
     @objc func getTrips() {
         let defaults = UserDefaults.standard
-        guard let email = defaults.string(forKey: "Email"),
-            let password = defaults.string(forKey: "Password")
-            else {return}
+//        guard let email = defaults.string(forKey: "Email"),
+//            let password = defaults.string(forKey: "Password")
+//            else {return}
         
-        let basicHeader = defaults.string(forKey: "basicAuth")
+        guard let basicHeader = defaults.string(forKey: "basicAuth") else {return}
         
-        Networking.instance.fetch(route: Route.trips, method: "GET", headers: ["Authorization": basicHeader!], data: nil) { (data) in
+        Networking.instance.fetch(route: Route.trips, method: "GET", headers: ["Authorization": basicHeader], data: nil) { (data) in
             
             let trips = try? JSONDecoder().decode([Trip].self, from: data)
             guard let trip_list = trips else {return}
@@ -107,11 +107,12 @@ extension TripsController: UITableViewDelegate, UITableViewDataSource{
         
         
         let defaults = UserDefaults.standard
-        guard let email = defaults.string(forKey: "Email"),
-            let password = defaults.string(forKey: "Password")
-            else {return}
-        
-        let basicHeader = BasicAuth.generateBasicAuthHeader(username: email, password: password)
+//        guard let email = defaults.string(forKey: "Email"),
+//            let password = defaults.string(forKey: "Password")
+//            else {return}
+//
+//        let basicHeader = BasicAuth.generateBasicAuthHeader(username: email, password: password)
+        guard let basicHeader = defaults.string(forKey: "basicAuth") else {return}
         Networking.instance.fetch(route: Route.trips, method: "PUT", headers: ["Authorization" : basicHeader, "Content-Type": "application/json"], data: trip) { (data) in
             DispatchQueue.main.async {
                 let buttonPosition = sender.convert(CGPoint.zero, to: self.tableView)

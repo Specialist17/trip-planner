@@ -16,7 +16,7 @@ class CreateTripVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
         // Do any additional setup after loading the view.
     }
 
@@ -38,11 +38,12 @@ class CreateTripVC: UIViewController {
     @IBAction func saveTripPressed(_ sender: UIButton) {
         
         let defaults = UserDefaults.standard
-        guard let email = defaults.string(forKey: "Email"),
-            let password = defaults.string(forKey: "Password")
-            else {return}
-        
-        let basicHeader = BasicAuth.generateBasicAuthHeader(username: email, password: password)
+//        guard let email = defaults.string(forKey: "Email"),
+//            let password = defaults.string(forKey: "Password")
+//            else {return}
+//
+//        let basicHeader = BasicAuth.generateBasicAuthHeader(username: "fabio17@mail.com", password: "123456")
+        guard let basicHeader = defaults.string(forKey: "basicAuth") else {return}
         let trip = Trip(completed: false, destination: self.destinationTextField.text!, start_date: self.startDateTextField.text!, end_date: self.endDateTextField.text!, waypoints: [])
         Networking.instance.fetch(route: Route.trips, method: "POST", headers: ["Authorization": basicHeader, "Content-Type": "application/json"], data: trip) { (data) in
             
@@ -54,7 +55,7 @@ class CreateTripVC: UIViewController {
             print(trip)
             
         }
-        
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

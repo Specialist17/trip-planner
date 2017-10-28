@@ -29,7 +29,7 @@ def auth_validation(email, user_password):
     user_id = database_user["_id"]
 
     password = user_password.encode('utf-8')
-    pdb.set_trace()
+    # pdb.set_trace()
     # Check if client password from login matches database password
     if bcrypt.hashpw(password, db_password) == db_password:
         # Let them in

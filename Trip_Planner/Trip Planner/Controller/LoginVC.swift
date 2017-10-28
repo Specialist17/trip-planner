@@ -18,9 +18,9 @@ class LoginVC: UIViewController {
         // Do any additional setup after loading the view.
         let loggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
         if loggedIn {
-            self.performSegue(withIdentifier: "HomeSegue", sender: nil)
+            self.performSegue(withIdentifier: "HomeSegue", sender: self)
         }
-        
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,8 +68,5 @@ class LoginVC: UIViewController {
                 self.performSegue(withIdentifier: "HomeSegue", sender: sender)
             }
         }
-        
-        
     }
-    
 }
