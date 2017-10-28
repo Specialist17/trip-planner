@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZtT-M2-v9L">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="k7q-pU-o5C">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -8,93 +8,7 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="AvenirNext.ttc">
-            <string>AvenirNext-Regular</string>
-        </array>
-    </customFonts>
     <scenes>
-        <!--LoginVC-->
-        <scene sceneID="qhJ-aX-lxN">
-            <objects>
-                <viewController storyboardIdentifier="LoginVC" id="ZtT-M2-v9L" customClass="LoginVC" customModule="Trip_Planner" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="EPf-kS-6Rh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="tG5-2p-EbQ">
-                                <rect key="frame" x="10" y="244" width="355" height="190"/>
-                                <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wj7-vE-LDB">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="d5z-PN-DhA"/>
-                                        </constraints>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OuZ-aU-pm6">
-                                        <rect key="frame" x="0.0" y="70" width="355" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="g1t-L0-0Iu"/>
-                                        </constraints>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gDZ-16-BH4">
-                                        <rect key="frame" x="0.0" y="140" width="355" height="50"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TPL-04-Kdx">
-                                                <rect key="frame" x="0.0" y="0.0" width="172.5" height="50"/>
-                                                <color key="backgroundColor" red="0.23403564099999999" green="0.66872245070000003" blue="0.85473078489999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
-                                                <state key="normal" title="Sign Up">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="performLogin:" destination="ZtT-M2-v9L" eventType="touchUpInside" id="nTB-qE-o98"/>
-                                                    <action selector="performSignup:" destination="ZtT-M2-v9L" eventType="touchUpInside" id="pWP-0s-ZM4"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-Zo-Ked">
-                                                <rect key="frame" x="182.5" y="0.0" width="172.5" height="50"/>
-                                                <color key="backgroundColor" red="0.23403564099999999" green="0.66872245070000003" blue="0.85473078489999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
-                                                <state key="normal" title="Login">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="performLogin:" destination="ZtT-M2-v9L" eventType="touchUpInside" id="tqo-3Z-DEd"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="OuZ-aU-pm6" firstAttribute="centerY" secondItem="tG5-2p-EbQ" secondAttribute="centerY" id="IEB-vf-5ca"/>
-                                </constraints>
-                            </stackView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="tG5-2p-EbQ" firstAttribute="leading" secondItem="ghb-Zj-ZaL" secondAttribute="leading" constant="10" id="DEv-mu-T9B"/>
-                            <constraint firstItem="tG5-2p-EbQ" firstAttribute="top" secondItem="ghb-Zj-ZaL" secondAttribute="top" constant="224" id="Nu2-1i-fPk"/>
-                            <constraint firstItem="ghb-Zj-ZaL" firstAttribute="trailing" secondItem="tG5-2p-EbQ" secondAttribute="trailing" constant="10" id="f2c-Jq-Xfj"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="ghb-Zj-ZaL"/>
-                    </view>
-                    <connections>
-                        <outlet property="emailTextField" destination="Wj7-vE-LDB" id="rSC-e5-qbQ"/>
-                        <outlet property="passwordTextField" destination="OuZ-aU-pm6" id="6IR-jv-8w8"/>
-                        <segue destination="k7q-pU-o5C" kind="show" identifier="HomeSegue" id="tN8-Vc-d9e"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6SY-Ng-aW2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-828" y="132.68365817091455"/>
-        </scene>
         <!--Trips Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>

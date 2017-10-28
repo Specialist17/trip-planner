@@ -16,10 +16,7 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let loggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
-        if loggedIn {
-            self.performSegue(withIdentifier: "HomeSegue", sender: self)
-        }
+        
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
 
