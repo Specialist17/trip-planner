@@ -13,7 +13,8 @@ app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
 # mongo = MongoClient('localhost', 27017)
 mongo = MongoClient(app.config['MONGODB_URI'])
-app.db = mongo.trip_planner_development
+# app.db = mongo.trip_planner_development
+app.db = mongo.trip_panner
 app.bcrypt_rounds = 12
 api = Api(app)
 
