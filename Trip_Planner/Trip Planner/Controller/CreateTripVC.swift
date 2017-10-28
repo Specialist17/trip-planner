@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import KeychainSwift
 
 class CreateTripVC: UIViewController {
 
     @IBOutlet weak var destinationTextField: UITextField!
     @IBOutlet weak var startDateTextField: UITextField!
     @IBOutlet weak var endDateTextField: UITextField!
+    let keychain = KeychainSwift()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,25 +27,9 @@ class CreateTripVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     @IBAction func saveTripPressed(_ sender: UIButton) {
-        
-        let defaults = UserDefaults.standard
-//        guard let email = defaults.string(forKey: "Email"),
-//            let password = defaults.string(forKey: "Password")
-//            else {return}
-//
-//        let basicHeader = BasicAuth.generateBasicAuthHeader(username: "fabio17@mail.com", password: "123456")
-        guard let basicHeader = defaults.string(forKey: "basicAuth") else {return}
+
+        guard let basicHeader = keychain.get("basicAuth")else {return}
         let trip = Trip(completed: false, destination: self.destinationTextField.text!, start_date: self.startDateTextField.text!, end_date: self.endDateTextField.text!, waypoints: [])
         Networking.instance.fetch(route: Route.trips, method: "POST", headers: ["Authorization": basicHeader, "Content-Type": "application/json"], data: trip) { (data) in
             

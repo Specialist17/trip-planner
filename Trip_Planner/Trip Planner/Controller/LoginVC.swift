@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import KeychainSwift
 
 class LoginVC: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     let defaults = UserDefaults.standard
+    let keychain = KeychainSwift()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -33,12 +36,15 @@ class LoginVC: UIViewController {
         }
         
         let basicHeader = BasicAuth.generateBasicAuthHeader(username: username, password: password)
-        defaults.set(basicHeader, forKey: "basicAuth")
+        keychain.set(basicHeader, forKey: "basicAuth")
+        
         defaults.set(true, forKey: "isLoggedIn")
         Networking.instance.fetch(route: Route.user, method: "GET", headers: ["Authorization": basicHeader], data: nil) { (data) in
             print("hola")
             DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "HomeSegue", sender: sender)
+               let initialViewController = UIStoryboard.initialViewController(for: .main)
+                self.view.window?.rootViewController = initialViewController
+                self.view.window?.makeKeyAndVisible()
             }
         }
     }
@@ -55,14 +61,16 @@ class LoginVC: UIViewController {
         
         let basicHeader = BasicAuth.generateBasicAuthHeader(username: email, password: password)
         let user = User(username: "El usuario", email: email, password: password)
-        defaults.set(basicHeader, forKey: "basicAuth")
+        keychain.set(basicHeader, forKey: "basicAuth")
         defaults.set(true, forKey: "isLoggedIn")
         
         Networking.instance.fetch(route: Route.user, method: "POST", headers: ["Content-Type": "application/json"], data: user) { (data) in
             
             
             DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "HomeSegue", sender: sender)
+                let initialViewController = UIStoryboard.initialViewController(for: .main)
+                self.view.window?.rootViewController = initialViewController
+                self.view.window?.makeKeyAndVisible()
             }
         }
     }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KeychainSwift
 
 class TripsController: UIViewController {
 
@@ -17,6 +18,9 @@ class TripsController: UIViewController {
             tableView.reloadData()
         }
     }
+    
+    let keychain = KeychainSwift()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,12 +33,11 @@ class TripsController: UIViewController {
     }
     
     @objc func getTrips() {
-        let defaults = UserDefaults.standard
 //        guard let email = defaults.string(forKey: "Email"),
 //            let password = defaults.string(forKey: "Password")
 //            else {return}
         
-        guard let basicHeader = defaults.string(forKey: "basicAuth") else {return}
+        guard let basicHeader = keychain.get("basicAuth") else {return}
         
         Networking.instance.fetch(route: Route.trips, method: "GET", headers: ["Authorization": basicHeader], data: nil) { (data) in
             
@@ -96,23 +99,13 @@ extension TripsController: UITableViewDelegate, UITableViewDataSource{
         
         if trip.completed {
             trip.completed = false
-//            completedTasks.remove(at: (completedTasks.count - 1) - sender.tag)
             sender.setImage(UIImage(named: "unchecked.png"), for: .normal)
         } else {
             sender.setImage(UIImage(named: "checked.png"), for: .normal)
             trip.completed = true
-//            completedTasks.append(task)
         }
         
-        
-        
-        let defaults = UserDefaults.standard
-//        guard let email = defaults.string(forKey: "Email"),
-//            let password = defaults.string(forKey: "Password")
-//            else {return}
-//
-//        let basicHeader = BasicAuth.generateBasicAuthHeader(username: email, password: password)
-        guard let basicHeader = defaults.string(forKey: "basicAuth") else {return}
+        guard let basicHeader = keychain.get("basicAuth") else {return}
         Networking.instance.fetch(route: Route.trips, method: "PUT", headers: ["Authorization" : basicHeader, "Content-Type": "application/json"], data: trip) { (data) in
             DispatchQueue.main.async {
                 let buttonPosition = sender.convert(CGPoint.zero, to: self.tableView)
